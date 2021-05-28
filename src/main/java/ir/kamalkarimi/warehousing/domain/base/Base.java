@@ -2,7 +2,7 @@ package ir.kamalkarimi.warehousing.domain.base;
 
 import java.util.Date;
 
-interface Base {
+public interface Base {
 
     Long  getId();
 
