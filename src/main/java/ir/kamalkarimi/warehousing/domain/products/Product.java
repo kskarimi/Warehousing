@@ -5,6 +5,7 @@ import ir.kamalkarimi.warehousing.domain.base.BaseImpl;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table
@@ -15,7 +16,7 @@ public class Product extends BaseImpl {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "product")
-    private Collection<Article> articles;
+    private List<Article> articles;
 
     public Product() {
     }
@@ -28,11 +29,11 @@ public class Product extends BaseImpl {
         this.name = name;
     }
 
-    public Collection<Article> getArticles() {
+    public List<Article> getArticles() {
         return articles;
     }
 
-    public void setArticles(Collection<Article> articles) {
+    public void setArticles(List<Article> articles) {
         this.articles = articles;
     }
 }
