@@ -1,10 +1,10 @@
 package ir.kamalkarimi.warehousing.dto;
 
-public class BaseTO {
+public class BaseDTO {
 
     private String id;
 
-    public BaseTO() {
+    public BaseDTO() {
     }
 
 

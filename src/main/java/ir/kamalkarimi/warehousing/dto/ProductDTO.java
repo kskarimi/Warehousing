@@ -1,16 +1,13 @@
 package ir.kamalkarimi.warehousing.dto;
 
-import ir.kamalkarimi.warehousing.dto.BaseTO;
-import ir.kamalkarimi.warehousing.dto.ArticleTO;
-
 import java.util.List;
 
-public class ProductTO extends BaseTO {
+public class ProductDTO extends BaseDTO {
 
     private String name;
-    private List<ArticleTO> articles;
+    private List<ArticleDTO> articles;
 
-    public ProductTO() {
+    public ProductDTO() {
     }
 
     public String getName() {
@@ -21,11 +18,11 @@ public class ProductTO extends BaseTO {
         this.name = name;
     }
 
-    public List<ArticleTO> getArticles() {
+    public List<ArticleDTO> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleTO> articles) {
+    public void setArticles(List<ArticleDTO> articles) {
         this.articles = articles;
     }
 }

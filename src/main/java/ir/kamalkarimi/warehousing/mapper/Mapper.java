@@ -1,11 +1,11 @@
 package ir.kamalkarimi.warehousing.mapper;
 
 import ir.kamalkarimi.warehousing.domain.base.BaseImpl;
-import ir.kamalkarimi.warehousing.dto.BaseTO;
+import ir.kamalkarimi.warehousing.dto.BaseDTO;
 import java.util.List;
 
 
-public interface Mapper<T extends BaseTO,S extends BaseImpl> {
+public interface Mapper<T extends BaseDTO,S extends BaseImpl> {
 
     T  toDTO(S entity);
 

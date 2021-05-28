@@ -29,13 +29,12 @@ public class InventoryController extends BaseController {
     public String handleFileUpload(HttpServletRequest request, HttpServletResponse response, ModelMap map, MultipartFile file){
         super.initializer(request,response,map);
         try {
-            String name = request.getParameter("filename");
-            fileService.upload(file,name);
-            inventoryService.index(fileService.read(name));
+            String filename = request.getParameter("filename");
+            fileService.upload(file,filename);
         } catch (BaseException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return "ok";
     }
 
     @ResponseBody

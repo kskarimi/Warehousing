@@ -1,8 +1,7 @@
 package ir.kamalkarimi.warehousing.mapper;
 
 import ir.kamalkarimi.warehousing.domain.articles.Article;
-import ir.kamalkarimi.warehousing.dto.ArticleTO;
-import ir.kamalkarimi.warehousing.dto.BaseTO;
+import ir.kamalkarimi.warehousing.dto.ArticleDTO;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ArticleMapper implements Mapper<ArticleTO, Article> {
+public class ArticleMapper implements Mapper<ArticleDTO, Article> {
 
     private final BaseUtil baseUtil;
     @Autowired
@@ -20,27 +19,27 @@ public class ArticleMapper implements Mapper<ArticleTO, Article> {
     }
 
     @Override
-    public ArticleTO toDTO(Article entity) {
+    public ArticleDTO toDTO(Article entity) {
         if (baseUtil.isNullEntity(entity))
             return null;
-        ArticleTO articleTO = new ArticleTO();
-        articleTO.setId(String.valueOf(entity.getId()));
-        articleTO.setName(entity.getName());
-        articleTO.setStock(String.valueOf(entity.getStock()));
-        return articleTO;
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setId(String.valueOf(entity.getId()));
+        articleDTO.setName(entity.getName());
+        articleDTO.setStock(String.valueOf(entity.getStock()));
+        return articleDTO;
     }
 
     @Override
-    public List<ArticleTO> toDTOS(List<Article> entities) {
+    public List<ArticleDTO> toDTOS(List<Article> entities) {
         if (baseUtil.isNullEntity(entities))
             return null;
-        List<ArticleTO> articleTOS = new ArrayList<>();
-        entities.forEach(e->articleTOS.add(this.toDTO(e)));
-        return articleTOS;
+        List<ArticleDTO> articleDTOS = new ArrayList<>();
+        entities.forEach(e-> articleDTOS.add(this.toDTO(e)));
+        return articleDTOS;
     }
 
     @Override
-    public Article toEntity(ArticleTO dto) {
+    public Article toEntity(ArticleDTO dto) {
         if (baseUtil.isNullDTO(dto))
             return null;
         Article article = new Article();
@@ -51,7 +50,7 @@ public class ArticleMapper implements Mapper<ArticleTO, Article> {
     }
 
     @Override
-    public List<Article> toEntities(List<ArticleTO> dtos) {
+    public List<Article> toEntities(List<ArticleDTO> dtos) {
         if (baseUtil.isNullDTO(dtos))
             return null;
         List<Article> articles = new ArrayList<>();

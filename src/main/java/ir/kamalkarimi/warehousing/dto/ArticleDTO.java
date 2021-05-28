@@ -1,11 +1,11 @@
 package ir.kamalkarimi.warehousing.dto;
 
-public class ArticleTO extends BaseTO {
+public class ArticleDTO extends BaseDTO {
     private String id;
     private String name;
     private String stock;
 
-    public ArticleTO() {
+    public ArticleDTO() {
     }
 
     public String getId() {

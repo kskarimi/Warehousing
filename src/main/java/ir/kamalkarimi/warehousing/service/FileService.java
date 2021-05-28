@@ -3,8 +3,7 @@ package ir.kamalkarimi.warehousing.service;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ir.kamalkarimi.warehousing.util.BaseException;
-import ir.kamalkarimi.warehousing.dto.BaseTO;
-import ir.kamalkarimi.warehousing.service.BaseService;
+import ir.kamalkarimi.warehousing.dto.BaseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +20,7 @@ public class FileService implements BaseService {
     private final String TEMP_DIRECTORY_NAME = "temp";
     private final String TEMP_DIRECTORY_PATH = "./temp/";
     private final String FILE_FORMAT = ".json";
+
     @Autowired
     public FileService() {
     }
@@ -57,7 +57,7 @@ public class FileService implements BaseService {
         }
     }
 
-    public <T extends BaseTO> Map<String,List<T>> read(String filename){
+    public <T extends BaseDTO> Map<String,List<T>> read(String filename){
         try(Reader reader = new FileReader(this.filePath(filename))){
             Type type = new TypeToken<Map<String,List<T>>>(){}.getType();
             return new Gson().fromJson(reader,type);
