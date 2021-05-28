@@ -14,10 +14,12 @@ public abstract class BaseImpl implements Base {
     @Column(nullable = false,unique = true)
     protected Long id;
 
-    @Column
+    @Basic(optional = false)
+    @Column(insertable = false,updatable = false)
+    @Temporal(TemporalType.DATE)
     protected Date createAt;
 
-    @Column
+    @Column(columnDefinition = "boolean default false")
     protected Boolean deleted;
 
     @Override
