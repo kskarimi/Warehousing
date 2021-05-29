@@ -1,10 +1,6 @@
-package ir.kamalkarimi.warehousing.domain.products;
-
-import ir.kamalkarimi.warehousing.domain.articles.Article;
-import ir.kamalkarimi.warehousing.domain.base.BaseImpl;
+package ir.kamalkarimi.warehousing.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity

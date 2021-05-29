@@ -1,4 +1,4 @@
-package ir.kamalkarimi.warehousing.domain.base;
+package ir.kamalkarimi.warehousing.model;
 
 import java.util.Date;
 

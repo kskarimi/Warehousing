@@ -1,7 +1,6 @@
 package ir.kamalkarimi.warehousing.util;
 
-import ir.kamalkarimi.warehousing.domain.base.Base;
-import ir.kamalkarimi.warehousing.dto.BaseDTO;
+import ir.kamalkarimi.warehousing.model.Base;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,19 +9,11 @@ import java.util.List;
 @Component
 public class BaseUtil {
 
-    public  <T extends Base> Boolean isNullEntity(T entity){
+    public  <T extends Base> Boolean isNull(T entity){
         return entity == null || entity.getId() == null;
     }
 
-    public <T extends Base> Boolean isNullEntity(List<T> entities){
+    public <T extends Base> Boolean isNull(List<T> entities){
         return entities == null || entities.isEmpty();
-    }
-    
-    public <T extends BaseDTO> Boolean isNullDTO(T dto){
-        return dto == null ;
-    }
-    
-    public <T extends BaseDTO> Boolean isNullDTO(List<T> dtos){
-        return dtos == null || dtos.isEmpty();
     }
 }

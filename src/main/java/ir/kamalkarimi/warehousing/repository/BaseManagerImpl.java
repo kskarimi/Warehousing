@@ -1,5 +1,6 @@
-package ir.kamalkarimi.warehousing.domain.base;
+package ir.kamalkarimi.warehousing.repository;
 
+import ir.kamalkarimi.warehousing.model.Base;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

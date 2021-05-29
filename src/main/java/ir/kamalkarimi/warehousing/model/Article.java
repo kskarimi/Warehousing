@@ -1,7 +1,4 @@
-package ir.kamalkarimi.warehousing.domain.articles;
-
-import ir.kamalkarimi.warehousing.domain.base.BaseImpl;
-import ir.kamalkarimi.warehousing.domain.products.Product;
+package ir.kamalkarimi.warehousing.model;
 
 import javax.persistence.*;
 

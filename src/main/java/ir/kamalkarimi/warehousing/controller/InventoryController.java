@@ -1,6 +1,6 @@
 package ir.kamalkarimi.warehousing.controller;
 
-import ir.kamalkarimi.warehousing.util.BaseException;
+import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.service.FileService;
 import ir.kamalkarimi.warehousing.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package ir.kamalkarimi.warehousing.service;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import ir.kamalkarimi.warehousing.util.BaseException;
-import ir.kamalkarimi.warehousing.dto.BaseDTO;
+import ir.kamalkarimi.warehousing.exception.BaseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class FileService implements BaseService {
+public class FileService {
 
 
     private final String TEMP_DIRECTORY_NAME = "temp";
@@ -57,17 +57,17 @@ public class FileService implements BaseService {
         }
     }
 
-    public <T extends BaseDTO> Map<String,List<T>> read(String filename){
-        try(Reader reader = new FileReader(this.filePath(filename))){
-            Type type = new TypeToken<Map<String,List<T>>>(){}.getType();
-            return new Gson().fromJson(reader,type);
-        }catch (IOException exception){
-            System.out.println(exception.getMessage());
-        }
-        return null;
-    }
+//    public <T extends BaseDTO> Map<String,List<T>> read(String filename){
+//        try(Reader reader = new FileReader(this.filePath(filename))){
+//            Type type = new TypeToken<Map<String,List<T>>>(){}.getType();
+//            return new Gson().fromJson(reader,type);
+//        }catch (IOException exception){
+//            System.out.println(exception.getMessage());
+//        }
+//        return null;
+//    }
 
-    private String filePath(String filename){
-        return TEMP_DIRECTORY_PATH+filename+FILE_FORMAT;
-    }
+//    private String filePath(String filename){
+//        return TEMP_DIRECTORY_PATH+filename+FILE_FORMAT;
+//    }
 }

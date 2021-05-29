@@ -1,6 +1,6 @@
-package ir.kamalkarimi.warehousing.domain.articles;
+package ir.kamalkarimi.warehousing.repository;
 
-import ir.kamalkarimi.warehousing.domain.base.BaseRepository;
+import ir.kamalkarimi.warehousing.model.Article;
 import org.springframework.stereotype.Repository;
 
 @Repository

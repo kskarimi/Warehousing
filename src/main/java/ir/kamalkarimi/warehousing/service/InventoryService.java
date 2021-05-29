@@ -1,14 +1,14 @@
 package ir.kamalkarimi.warehousing.service;
 
 import ir.kamalkarimi.warehousing.util.BaseUtil;
-import ir.kamalkarimi.warehousing.domain.articles.ArticlesManager;
-import ir.kamalkarimi.warehousing.domain.products.ProductManager;
+import ir.kamalkarimi.warehousing.repository.ArticlesManager;
+import ir.kamalkarimi.warehousing.repository.ProductManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class InventoryService implements BaseService {
+public class InventoryService {
 
     private final BaseUtil baseUtil;
     private final ArticlesManager articlesManager;

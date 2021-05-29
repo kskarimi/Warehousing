@@ -1,4 +1,4 @@
-package ir.kamalkarimi.warehousing.util;
+package ir.kamalkarimi.warehousing.exception;
 
 public class BaseException extends Exception{
     public BaseException(String message) {

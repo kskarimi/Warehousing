@@ -1,18 +1,18 @@
 package ir.kamalkarimi.warehousing.dto;
 
-public class ArticleDTO extends BaseDTO {
-    private String id;
+public class ArticleTO {
+    private Long id;
     private String name;
-    private String stock;
+    private Integer stock;
 
-    public ArticleDTO() {
+    public ArticleTO() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -24,11 +24,11 @@ public class ArticleDTO extends BaseDTO {
         this.name = name;
     }
 
-    public String getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 }
