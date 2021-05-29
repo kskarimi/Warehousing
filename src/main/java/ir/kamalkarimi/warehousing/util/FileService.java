@@ -1,4 +1,4 @@
-package ir.kamalkarimi.warehousing.service;
+package ir.kamalkarimi.warehousing.util;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

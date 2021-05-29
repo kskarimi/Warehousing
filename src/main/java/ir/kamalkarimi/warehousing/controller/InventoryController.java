@@ -1,8 +1,8 @@
 package ir.kamalkarimi.warehousing.controller;
 
 import ir.kamalkarimi.warehousing.exception.BaseException;
-import ir.kamalkarimi.warehousing.service.FileService;
-import ir.kamalkarimi.warehousing.service.InventoryService;
+import ir.kamalkarimi.warehousing.util.FileService;
+import ir.kamalkarimi.warehousing.service.InventoryFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class InventoryController extends BaseController {
 
-    private final InventoryService inventoryService;
+    private final InventoryFacade inventoryFacade;
     private final FileService fileService;
 
     @Autowired
-    public InventoryController(InventoryService inventoryService,FileService fileService) {
-        this.inventoryService = inventoryService;
+    public InventoryController(InventoryFacade inventoryFacade, FileService fileService) {
+        this.inventoryFacade = inventoryFacade;
         this.fileService = fileService;
     }
 
