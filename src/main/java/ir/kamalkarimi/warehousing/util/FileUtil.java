@@ -1,20 +1,13 @@
 package ir.kamalkarimi.warehousing.util;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import ir.kamalkarimi.warehousing.exception.BaseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-
-@Service
-public class FileService {
+@Component
+public class FileUtil {
 
 
     private final String TEMP_DIRECTORY_NAME = "temp";
@@ -22,7 +15,7 @@ public class FileService {
     private final String FILE_FORMAT = ".json";
 
     @Autowired
-    public FileService() {
+    public FileUtil() {
     }
 
     public void upload(MultipartFile file,String name) throws BaseException {

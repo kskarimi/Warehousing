@@ -1,7 +1,7 @@
 package ir.kamalkarimi.warehousing.controller;
 
 import ir.kamalkarimi.warehousing.exception.BaseException;
-import ir.kamalkarimi.warehousing.util.FileService;
+import ir.kamalkarimi.warehousing.util.FileUtil;
 import ir.kamalkarimi.warehousing.service.InventoryFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 public class InventoryController extends BaseController {
 
     private final InventoryFacade inventoryFacade;
-    private final FileService fileService;
+    private final FileUtil fileUtil;
 
     @Autowired
-    public InventoryController(InventoryFacade inventoryFacade, FileService fileService) {
+    public InventoryController(InventoryFacade inventoryFacade, FileUtil fileUtil) {
         this.inventoryFacade = inventoryFacade;
-        this.fileService = fileService;
+        this.fileUtil = fileUtil;
     }
 
     @ResponseBody
@@ -30,7 +30,7 @@ public class InventoryController extends BaseController {
         super.initializer(request,response,map);
         try {
             String filename = request.getParameter("filename");
-            fileService.upload(file,filename);
+            fileUtil.upload(file,filename);
         } catch (BaseException e) {
             System.out.println(e.getMessage());
         }
