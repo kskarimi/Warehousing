@@ -20,7 +20,7 @@ public abstract class BaseImpl implements Base {
     protected Date createAt;
 
     @Column(columnDefinition = "boolean default false")
-    protected Boolean deleted;
+    protected Boolean disabled;
 
     @Override
     public Long getId() {
@@ -43,13 +43,13 @@ public abstract class BaseImpl implements Base {
     }
 
     @Override
-    public Boolean isDeleted() {
-        return null;
+    public Boolean isDisabled() {
+        return disabled;
     }
 
     @Override
-    public void setDeleted(Boolean deleted) {
-
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 
     @Override

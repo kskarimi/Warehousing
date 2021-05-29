@@ -12,7 +12,7 @@ public interface Base {
 
     void  setCreateAt(Date createAt);
 
-    Boolean isDeleted();
+    Boolean isDisabled();
 
-    void setDeleted(Boolean deleted);
+    void setDisabled(Boolean disabled);
 }
