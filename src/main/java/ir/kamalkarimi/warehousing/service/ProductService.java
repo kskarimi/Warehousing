@@ -25,7 +25,7 @@ public class ProductService {
     public ProductDto index(ProductDto productDto){
         if (productDto == null)
             return null;
-        return productMapper.productToDto(productManager.index(productMapper.productDtoToEntity(productDto)));
+        return productMapper.productToDto(productManager.saveAndFlush(productMapper.productDtoToEntity(productDto)));
     }
 
     public List<ProductDto> index(List<ProductDto> productDtos){

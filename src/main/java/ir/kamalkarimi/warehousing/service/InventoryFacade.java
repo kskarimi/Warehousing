@@ -47,13 +47,9 @@ public class InventoryFacade {
         ProductDto[] productDtos = productsDto.getProducts();
         if (productDtos == null  || productDtos.length == 0)
             return null;
-
-        List<ProductDto> productDtoList = new ArrayList<>();
-        for (ProductDto productDto : productDtos) {
-            if (productDto == null)
-                continue;
-            productDtoList.add(productService.index(productDto));
-        }
+        List<ProductDto> productDtoList = productService.index(Arrays.asList(productDtos.clone()));
+        if (productDtoList == null || productDtoList.isEmpty())
+            return null;
 
         return new ProductsDto(productDtoList.toArray(new ProductDto[productDtoList.size()]));
     }

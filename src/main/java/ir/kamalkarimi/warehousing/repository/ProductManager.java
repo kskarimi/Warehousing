@@ -21,4 +21,8 @@ public class ProductManager extends BaseManagerImpl<Product> {
     protected BaseRepository<Product> getRepository() {
         return repository;
     }
+
+    public Product saveAndFlush(Product productDtoToEntity) {
+        return repository.saveAndFlush(productDtoToEntity);
+    }
 }

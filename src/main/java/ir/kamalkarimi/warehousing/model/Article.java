@@ -12,7 +12,8 @@ public class Article extends BaseImpl {
     @Column
     private Integer stock;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Product.class)
+    @JoinColumn(name = "product_id")
     private Product product;
 
     public Article() {
