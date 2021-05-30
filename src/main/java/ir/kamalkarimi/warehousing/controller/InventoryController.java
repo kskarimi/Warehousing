@@ -31,19 +31,19 @@ public class InventoryController extends BaseController {
     @GetMapping("/")
     public String homePage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
         super.initializer(request,response,attributes);
-        return "index";
+        return RedirectService.HOME_PAGE;
     }
 
     @GetMapping(value = "/product")
     public String productPage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
         super.initializer(request,response,attributes);
-        return "product";
+        return RedirectService.PRODUCT_PAGE;
     }
 
     @GetMapping(value = "/inventory")
     public String inventoryPage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
         super.initializer(request,response,attributes);
-        return "inventory";
+        return RedirectService.INVENTORY_PAGE;
     }
 
 
@@ -54,25 +54,29 @@ public class InventoryController extends BaseController {
         super.initializer(request,response,attributes);
         try {
             if (file.isEmpty()){
-                attributes.addFlashAttribute(RedirectService.MESSAGE,"Please select a file.");
-                redirectService.redirectTo("/");
+                attributes.addFlashAttribute(RedirectService.ERROR,"Please select a file.");
             }
-            fileUtil.uploadFile(file);
+            if (StringUtils.hasLength(fileType)){
+                if (fileType.equals("product") || fileType.equals("inventory")){
+                    fileUtil.uploadFile(file);
+                }
+            }
         } catch (BaseException baseException) {
             attributes.addFlashAttribute(RedirectService.MESSAGE,"Failed upload "+fileUtil.getFileName(file));
         }
+
         String message = null;
         if (StringUtils.hasLength(fileType)){
             message = "You successfully upload "+ fileUtil.getFileName(file);
             if (fileType.equals("product")){
                 attributes.addFlashAttribute(RedirectService.MESSAGE,message);
-                return redirectService.redirectTo("product");
+                return redirectService.redirectTo(RedirectService.PRODUCT_PAGE);
             }else if (fileType.equals("inventory")){
                 attributes.addFlashAttribute(RedirectService.MESSAGE,message);
-                return redirectService.redirectTo("inventory");
+                return redirectService.redirectTo(RedirectService.INVENTORY_PAGE);
             }
         }
         attributes.addFlashAttribute(RedirectService.MESSAGE,message);
-        return redirectService.redirectTo("/");
+        return redirectService.redirectTo(redirectService.getReferer(this.getReferer()));
     }
 }

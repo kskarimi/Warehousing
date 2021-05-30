@@ -8,13 +8,19 @@ import java.io.UnsupportedEncodingException;
 
 public abstract class BaseController {
 
+    private String referer ;
     public void initializer(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attributes){
         try {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
+            referer = request.getHeader("referer");
         } catch (UnsupportedEncodingException e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public String getReferer() {
+        return referer;
     }
 }

@@ -23,7 +23,8 @@
                     <a href="/product" class="navbar-brand">Product</a>
                 </nav>
                 <h2>Upload inventory data</h2>
-                <p th:text="${message}" th:if="${message ne null }" class="alert alert-primary"></p>
+                <p th:text="${message}" th:if="${error == null and message != null}" class="alert alert-primary"></p>
+                <p th:text="${error}" th:if=" ${error != null }" class="alert alert-danger"></p>
                 <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="file" name="file" class="form-control-file">
