@@ -8,11 +8,7 @@ public interface Base {
 
     void  setId(Long id);
 
-    Date  getCreateAt();
+    boolean isDisabled();
 
-    void  setCreateAt(Date createAt);
-
-    Boolean isDisabled();
-
-    void setDisabled(Boolean disabled);
+    void setDisabled(boolean disabled);
 }

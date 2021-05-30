@@ -1,6 +1,10 @@
 package ir.kamalkarimi.warehousing.controller;
 
+import com.google.gson.Gson;
+import ir.kamalkarimi.warehousing.dto.ArticleDto;
+import ir.kamalkarimi.warehousing.dto.InventoryDto;
 import ir.kamalkarimi.warehousing.exception.BaseException;
+import ir.kamalkarimi.warehousing.service.AjaxService;
 import ir.kamalkarimi.warehousing.service.RedirectService;
 import ir.kamalkarimi.warehousing.util.FileUtil;
 import ir.kamalkarimi.warehousing.service.InventoryFacade;
@@ -10,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,12 +23,14 @@ public class InventoryController extends BaseController {
     private final InventoryFacade inventoryFacade;
     private final FileUtil fileUtil;
     private final RedirectService redirectService;
+    private final AjaxService ajaxService;
 
     @Autowired
-    public InventoryController(InventoryFacade inventoryFacade, FileUtil fileUtil, RedirectService redirectService) {
+    public InventoryController(InventoryFacade inventoryFacade, FileUtil fileUtil, RedirectService redirectService, AjaxService ajaxService) {
         this.inventoryFacade = inventoryFacade;
         this.fileUtil = fileUtil;
         this.redirectService = redirectService;
+        this.ajaxService = ajaxService;
     }
 
     @GetMapping("/")
@@ -46,11 +51,20 @@ public class InventoryController extends BaseController {
         return RedirectService.INVENTORY_PAGE;
     }
 
+    @ResponseBody
+    @PostMapping(value = "/inventory")
+    public String showInventory(HttpServletRequest request, HttpServletResponse response) {
+        super.initializer(request, response);
+
+        InventoryDto inventoryDto = fileUtil.readFile("inventory", InventoryDto.class);
+        inventoryFacade.index(inventoryDto);
+
+        return ajaxService.toJson(inventoryDto);
+    }
 
     @PostMapping(value = "/upload")
     public String uploadFile(HttpServletRequest request, HttpServletResponse response,
-                             @RequestParam("file") MultipartFile file,@RequestParam("fileType") String fileType,
-                             RedirectAttributes attributes){
+                             @RequestParam("file") MultipartFile file,@RequestParam("fileType") String fileType, RedirectAttributes attributes){
         super.initializer(request,response,attributes);
         try {
             if (file.isEmpty()){

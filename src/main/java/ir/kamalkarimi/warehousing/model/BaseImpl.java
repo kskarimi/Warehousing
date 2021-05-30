@@ -1,6 +1,8 @@
 package ir.kamalkarimi.warehousing.model;
 
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,41 +16,26 @@ public abstract class BaseImpl implements Base {
     @Column(nullable = false,unique = true)
     protected Long id;
 
-    @Basic(optional = false)
-    @Column(insertable = false,updatable = false)
-    @Temporal(TemporalType.DATE)
-    protected Date createAt;
-
     @Column(columnDefinition = "boolean default false")
-    protected Boolean disabled;
+    protected boolean disabled;
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
-
+        this.id = id;
     }
 
     @Override
-    public Date getCreateAt() {
-        return null;
-    }
-
-    @Override
-    public void setCreateAt(Date createAt) {
-
-    }
-
-    @Override
-    public Boolean isDisabled() {
+    public boolean isDisabled() {
         return disabled;
     }
 
     @Override
-    public void setDisabled(Boolean disabled) {
+    public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
 

@@ -1,5 +1,7 @@
 package ir.kamalkarimi.warehousing.config;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ir.kamalkarimi.warehousing.dto.ArticleMapper;
 import ir.kamalkarimi.warehousing.dto.ProductMapper;
 import org.springframework.context.annotation.Bean;
@@ -17,5 +19,10 @@ public class BeanConfig {
     @Bean
     ProductMapper productMapper(){
         return ProductMapper.PRODUCT_MAPPER;
+    }
+
+    @Bean
+    Gson gson(){
+        return new GsonBuilder().create();
     }
 }
