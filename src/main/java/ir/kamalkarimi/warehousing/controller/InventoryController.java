@@ -24,8 +24,13 @@ public class InventoryController extends BaseController {
         this.fileUtil = fileUtil;
     }
 
+    @GetMapping("/")
+    public String inventoryHomePage(){
+        return "index";
+    }
+
     @ResponseBody
-    @RequestMapping(value = "/upload",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @PostMapping(value = "/upload",produces = "application/json; charset=utf-8")
     public String handleFileUpload(HttpServletRequest request, HttpServletResponse response, ModelMap map, MultipartFile file){
         super.initializer(request,response,map);
         try {
@@ -38,14 +43,14 @@ public class InventoryController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/products",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
+    @GetMapping(value = "/products",produces = "application/json; charset=utf-8")
     public String getAllProductsAndAvailableQuantity(HttpServletRequest request,HttpServletResponse response,ModelMap map){
         super.initializer(request,response,map);
         return null;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/sell",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @PostMapping(value = "/sell",produces = "application/json; charset=utf-8")
     public String sellProduct(HttpServletRequest request,HttpServletResponse response,ModelMap map){
         super.initializer(request,response,map);
         return null;
