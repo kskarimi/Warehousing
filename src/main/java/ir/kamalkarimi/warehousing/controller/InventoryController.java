@@ -3,6 +3,7 @@ package ir.kamalkarimi.warehousing.controller;
 import com.google.gson.Gson;
 import ir.kamalkarimi.warehousing.dto.ArticleDto;
 import ir.kamalkarimi.warehousing.dto.InventoryDto;
+import ir.kamalkarimi.warehousing.dto.ProductsDto;
 import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.service.AjaxService;
 import ir.kamalkarimi.warehousing.service.RedirectService;
@@ -45,6 +46,14 @@ public class InventoryController extends BaseController {
         return RedirectService.PRODUCT_PAGE;
     }
 
+    @ResponseBody
+    @PostMapping(value = "/product")
+    public String showProduct(HttpServletRequest request,HttpServletResponse response){
+        super.initializer(request,response);
+        ProductsDto productsDto = fileUtil.readFile("products", ProductsDto.class);
+        return ajaxService.toJson(inventoryFacade.index(productsDto));
+    }
+
     @GetMapping(value = "/inventory")
     public String inventoryPage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
         super.initializer(request,response,attributes);
@@ -55,11 +64,8 @@ public class InventoryController extends BaseController {
     @PostMapping(value = "/inventory")
     public String showInventory(HttpServletRequest request, HttpServletResponse response) {
         super.initializer(request, response);
-
         InventoryDto inventoryDto = fileUtil.readFile("inventory", InventoryDto.class);
-        inventoryFacade.index(inventoryDto);
-
-        return ajaxService.toJson(inventoryDto);
+        return ajaxService.toJson(inventoryFacade.index(inventoryDto));
     }
 
     @PostMapping(value = "/upload")

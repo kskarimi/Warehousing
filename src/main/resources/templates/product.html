@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>WareHousing</title>
 </head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 <style>
     .custom-nav{
         padding: 10px;
@@ -32,12 +32,51 @@
                     </div>
                     <div style="margin-top: 10px;margin-bottom: 10px">
                         <button type="submit" style="width: 80px;" class="btn btn-primary">Upload</button>
-                        <button type="button" style="width: 80px;" class="btn btn-primary">Show</button>
+                        <button type="button" style="width: 80px;" onclick="showProducts()" class="btn btn-primary">Show</button>
                     </div>
                 </form>
+                <div>
+                    <table id="productTableId" class="table">
+                        <thead>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </section>
 </body>
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="application/javascript"></script>
+<script>
+    function showProducts(){
+        $.ajax({
+            url:"/product",
+            type:'post',
+            data:{},
+            success: function (result){
+                if (result){
+                    let json = JSON.parse(result);
+                    let product = json['products'];
+                    let tbody = '<tbody><tr>\n' +
+                        '<th scope="col">#</th>\n' +
+                        '<th scope="col">name</th>\n' +
+                        '</tr>';
+                    for (let i=0 ; i< product.length;i++){
+                        tbody += '<tr><th scope="row">'+i+'</th>'+
+                            '<td>'+product[i].name+'</td>' +
+                            '</tr>';
+                    }
+                    tbody += '</tbody>';
+                    $('#productTableId tr').remove();
+                    $('#productTableId').append(tbody);
+                }else{
+                    $('#productTableId tr').remove();
+                }
+            } ,
+            error: function (result){
+                console.log(result)
+            }
+        });
+    }
+</script>
 </html>
