@@ -24,6 +24,9 @@
                 </nav>
                 <p th:text="${message}" th:if="${error == null and message != null }" class="alert alert-primary"></p>
                 <p th:text="${error}" th:if=" ${error != null }" class="alert alert-danger"></p>
+
+                <p class="alert alert-primary"><a href="/h2-console" target="_blank">H2 console</a></p>
+
             </div>
         </div>
     </div>
