@@ -1,13 +1,15 @@
 package ir.kamalkarimi.warehousing.controller;
 
 import ir.kamalkarimi.warehousing.exception.BaseException;
+import ir.kamalkarimi.warehousing.service.RedirectService;
 import ir.kamalkarimi.warehousing.util.FileUtil;
 import ir.kamalkarimi.warehousing.service.InventoryFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,42 +19,60 @@ public class InventoryController extends BaseController {
 
     private final InventoryFacade inventoryFacade;
     private final FileUtil fileUtil;
+    private final RedirectService redirectService;
 
     @Autowired
-    public InventoryController(InventoryFacade inventoryFacade, FileUtil fileUtil) {
+    public InventoryController(InventoryFacade inventoryFacade, FileUtil fileUtil, RedirectService redirectService) {
         this.inventoryFacade = inventoryFacade;
         this.fileUtil = fileUtil;
+        this.redirectService = redirectService;
     }
 
     @GetMapping("/")
-    public String inventoryHomePage(){
+    public String homePage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
+        super.initializer(request,response,attributes);
         return "index";
     }
 
-    @ResponseBody
-    @PostMapping(value = "/upload",produces = "application/json; charset=utf-8")
-    public String handleFileUpload(HttpServletRequest request, HttpServletResponse response, ModelMap map, MultipartFile file){
-        super.initializer(request,response,map);
+    @GetMapping(value = "/product")
+    public String productPage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
+        super.initializer(request,response,attributes);
+        return "product";
+    }
+
+    @GetMapping(value = "/inventory")
+    public String inventoryPage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
+        super.initializer(request,response,attributes);
+        return "inventory";
+    }
+
+
+    @PostMapping(value = "/upload")
+    public String uploadFile(HttpServletRequest request, HttpServletResponse response,
+                             @RequestParam("file") MultipartFile file,@RequestParam("fileType") String fileType,
+                             RedirectAttributes attributes){
+        super.initializer(request,response,attributes);
         try {
-            String filename = request.getParameter("filename");
-            fileUtil.upload(file,filename);
-        } catch (BaseException e) {
-            System.out.println(e.getMessage());
+            if (file.isEmpty()){
+                attributes.addFlashAttribute(RedirectService.MESSAGE,"Please select a file.");
+                redirectService.redirectTo("/");
+            }
+            fileUtil.uploadFile(file);
+        } catch (BaseException baseException) {
+            attributes.addFlashAttribute(RedirectService.MESSAGE,"Failed upload "+fileUtil.getFileName(file));
         }
-        return "ok";
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/products",produces = "application/json; charset=utf-8")
-    public String getAllProductsAndAvailableQuantity(HttpServletRequest request,HttpServletResponse response,ModelMap map){
-        super.initializer(request,response,map);
-        return null;
-    }
-
-    @ResponseBody
-    @PostMapping(value = "/sell",produces = "application/json; charset=utf-8")
-    public String sellProduct(HttpServletRequest request,HttpServletResponse response,ModelMap map){
-        super.initializer(request,response,map);
-        return null;
+        String message = null;
+        if (StringUtils.hasLength(fileType)){
+            message = "You successfully upload "+ fileUtil.getFileName(file);
+            if (fileType.equals("product")){
+                attributes.addFlashAttribute(RedirectService.MESSAGE,message);
+                return redirectService.redirectTo("product");
+            }else if (fileType.equals("inventory")){
+                attributes.addFlashAttribute(RedirectService.MESSAGE,message);
+                return redirectService.redirectTo("inventory");
+            }
+        }
+        attributes.addFlashAttribute(RedirectService.MESSAGE,message);
+        return redirectService.redirectTo("/");
     }
 }

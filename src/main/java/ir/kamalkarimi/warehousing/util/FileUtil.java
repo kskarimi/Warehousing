@@ -1,66 +1,42 @@
 package ir.kamalkarimi.warehousing.util;
-import ir.kamalkarimi.warehousing.exception.BaseException;
 
+import ir.kamalkarimi.warehousing.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+
+
 @Component
 public class FileUtil {
 
-
-    private final String TEMP_DIRECTORY_NAME = "temp";
-    private final String TEMP_DIRECTORY_PATH = "./temp/";
-    private final String FILE_FORMAT = ".json";
+    public final static String TEMP_FILE_PATH = "./temp/";
 
     @Autowired
     public FileUtil() {
     }
 
-    public void upload(MultipartFile file,String name) throws BaseException {
+    public void uploadFile(MultipartFile file) throws BaseException {
+        if (file.isEmpty())
+            throw new BaseException("FileUtil: file is empty");
         try {
-            if (file == null || file.isEmpty())
-                throw new BaseException("File is Empty.");
-
-            InputStream inputStream ;
-            inputStream = file.getInputStream();
-
-            File currentDir     = new File(".");
-            String path         = currentDir.getAbsolutePath();
-            String tempDir      = path.substring(0,path.length()-1) + this.TEMP_DIRECTORY_NAME;
-            String fileLocation = tempDir + "/" + name + ".json";
-
-            File dir = new File(tempDir);
-            if (!dir.exists())
-                dir.mkdir();
-
-            FileOutputStream outputStream;
-            outputStream = new FileOutputStream(fileLocation);
-
-            int ch = 0 ;
-            while ((ch = inputStream.read()) != -1){
-                outputStream.write(ch);
-            }
-            outputStream.flush();
-            outputStream.close();
-
-        }catch (IOException exception){
-            throw new BaseException(exception.getMessage());
+            Files.copy(file.getInputStream(),this.getFilePath(getFileName(file)), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException exception) {
+            throw new BaseException("FileUtil: copy failed !");
         }
     }
 
-//    public <T extends BaseDTO> Map<String,List<T>> read(String filename){
-//        try(Reader reader = new FileReader(this.filePath(filename))){
-//            Type type = new TypeToken<Map<String,List<T>>>(){}.getType();
-//            return new Gson().fromJson(reader,type);
-//        }catch (IOException exception){
-//            System.out.println(exception.getMessage());
-//        }
-//        return null;
-//    }
-
-//    private String filePath(String filename){
-//        return TEMP_DIRECTORY_PATH+filename+FILE_FORMAT;
-//    }
+    public String getFileName(MultipartFile file){
+        return StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+    }
+    public Path getFilePath(String fileName){
+        return Paths.get(TEMP_FILE_PATH + fileName);
+    }
 }
