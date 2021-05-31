@@ -1,8 +1,5 @@
 package ir.kamalkarimi.warehousing.service;
-import ir.kamalkarimi.warehousing.dto.ArticleDto;
-import ir.kamalkarimi.warehousing.dto.InventoryDto;
-import ir.kamalkarimi.warehousing.dto.ProductDto;
-import ir.kamalkarimi.warehousing.dto.ProductsDto;
+import ir.kamalkarimi.warehousing.dto.*;
 import ir.kamalkarimi.warehousing.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,17 +37,36 @@ public class InventoryFacade {
         return inventory;
     }
 
-    public  ProductsDto index(ProductsDto productsDto) {
+    public  List<ProductDto> index(ProductsDto productsDto) {
         if (productsDto == null)
             return null;
-
-        ProductDto[] productDtos = productsDto.getProducts();
-        if (productDtos == null  || productDtos.length == 0)
+        List<ProductItemDto> productItemDtos = productsDto.getProducts();
+        if (productItemDtos == null || productItemDtos.isEmpty()){
             return null;
-        List<ProductDto> productDtoList = productService.index(Arrays.asList(productDtos.clone()));
-        if (productDtoList == null || productDtoList.isEmpty())
-            return null;
+        }
 
-        return new ProductsDto(productDtoList.toArray(new ProductDto[productDtoList.size()]));
+        return use(productItemDtos);
+    }
+
+    public List<ProductDto> use(List<ProductItemDto> productItemDtos) {
+        if (productItemDtos == null || productItemDtos.isEmpty()){
+            return null;
+        }
+        List<ProductDto> productDtoList = new ArrayList<>();
+        for (ProductItemDto productItemDto : productItemDtos) {
+            if (productItemDto == null)
+                continue;
+            List<ArticleItemDto> articleItemDtos = productItemDto.getArticles();
+            List<ArticleDto> articleDtoList = null;
+            if (articleItemDtos != null && !articleItemDtos.isEmpty()){
+                articleDtoList =  articleService.use(articleItemDtos);
+            }
+            ProductDto productDto = new ProductDto();
+            productDto.setArticles(articleDtoList);
+            productDto.setName(productItemDto.getName());
+
+            productDtoList.add(productDto);
+        }
+        return productService.index(productDtoList);
     }
 }

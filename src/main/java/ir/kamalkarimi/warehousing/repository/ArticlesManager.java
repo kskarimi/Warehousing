@@ -1,9 +1,12 @@
 package ir.kamalkarimi.warehousing.repository;
 
+import ir.kamalkarimi.warehousing.dto.ArticleDto;
 import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ArticlesManager extends BaseManagerImpl<Article> {
@@ -20,5 +23,24 @@ public class ArticlesManager extends BaseManagerImpl<Article> {
     @Override
     protected BaseRepository<Article> getRepository() {
         return repository;
+    }
+
+    public Article use(Long articleId, Integer amount) {
+        if (articleId == null)
+            return null;
+        Optional<Article> optionalArticle = repository.findById(articleId);
+        if (!optionalArticle.isPresent()){
+            return null;
+        }
+
+        Article article = optionalArticle.get();
+        Integer stock = article.getStock() == null ? 0: article.getStock();
+        Integer remind = stock - amount;
+
+        if (remind == null ||  remind < 0){
+            return null;
+        }
+            article.setStock(amount);
+        return repository.save(article);
     }
 }

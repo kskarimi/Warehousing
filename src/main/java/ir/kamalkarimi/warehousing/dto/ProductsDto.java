@@ -1,18 +1,23 @@
 package ir.kamalkarimi.warehousing.dto;
 
+import java.util.List;
+
 public class ProductsDto {
 
-    private ProductDto []products;
+    private List<ProductItemDto> products;
 
-    public ProductsDto(ProductDto[] products) {
+    public ProductsDto() {
+    }
+
+    public ProductsDto(List<ProductItemDto> products) {
         this.products = products;
     }
 
-    public ProductDto[] getProducts() {
+    public List<ProductItemDto> getProducts() {
         return products;
     }
 
-    public void setProducts(ProductDto[] products) {
+    public void setProducts(List<ProductItemDto> products) {
         this.products = products;
     }
 }

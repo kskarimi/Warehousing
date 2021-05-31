@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Controller
 public class InventoryController extends BaseController {
@@ -50,8 +52,8 @@ public class InventoryController extends BaseController {
     @PostMapping(value = "/product")
     public String showProduct(HttpServletRequest request,HttpServletResponse response){
         super.initializer(request,response);
-        ProductsDto productsDto = fileUtil.readFile("products", ProductsDto.class);
-        return ajaxService.toJson(inventoryFacade.index(productsDto));
+        ProductsDto products = fileUtil.readFile("products", ProductsDto.class);
+        return ajaxService.toJson(inventoryFacade.index(products));
     }
 
     @GetMapping(value = "/inventory")
