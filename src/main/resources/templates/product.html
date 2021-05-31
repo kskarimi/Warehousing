@@ -55,8 +55,8 @@
             data:{},
             success: function (result){
                 if (result){
-                    let json = JSON.parse(result);
-                    let product = json['products'];
+                    let product = JSON.parse(result);
+                    console.log(product);
                     let tbody = '<tbody><tr>\n' +
                         '<th scope="col">#</th>\n' +
                         '<th scope="col">name</th>\n' +
