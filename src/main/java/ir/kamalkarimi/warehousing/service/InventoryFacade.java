@@ -1,9 +1,10 @@
 package ir.kamalkarimi.warehousing.service;
 import ir.kamalkarimi.warehousing.dto.*;
-import ir.kamalkarimi.warehousing.dto.article.ItemTO;
+import ir.kamalkarimi.warehousing.dto.article.ArticleItemTO;
 import ir.kamalkarimi.warehousing.dto.article.ArticleTO;
 import ir.kamalkarimi.warehousing.dto.product.ProductTO;
 import ir.kamalkarimi.warehousing.dto.product.ProductsTO;
+import ir.kamalkarimi.warehousing.dto.product.productItemTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,30 +44,30 @@ public class InventoryFacade {
     public  List<ProductTO> index(ProductsTO productsTO) {
         if (productsTO == null)
             return null;
-        List<ir.kamalkarimi.warehousing.dto.product.ItemTO> itemTOS = productsTO.getProducts();
-        if (itemTOS == null || itemTOS.isEmpty()){
+        List<productItemTO> productItemTOS = productsTO.getProducts();
+        if (productItemTOS == null || productItemTOS.isEmpty()){
             return null;
         }
 
-        return use(itemTOS);
+        return use(productItemTOS);
     }
 
-    public List<ProductTO> use(List<ir.kamalkarimi.warehousing.dto.product.ItemTO> itemTOS) {
-        if (itemTOS == null || itemTOS.isEmpty()){
+    public List<ProductTO> use(List<productItemTO> productItemTOS) {
+        if (productItemTOS == null || productItemTOS.isEmpty()){
             return null;
         }
         List<ProductTO> productTOList = new ArrayList<>();
-        for (ir.kamalkarimi.warehousing.dto.product.ItemTO itemTO : itemTOS) {
-            if (itemTO == null)
+        for (productItemTO productItemTO : productItemTOS) {
+            if (productItemTO == null)
                 continue;
-            List<ItemTO> articleItemTOS = itemTO.getArticles();
+            List<ArticleItemTO> articleArticleItemTOS = productItemTO.getArticles();
             List<ArticleTO> articleTOList = null;
-            if (articleItemTOS != null && !articleItemTOS.isEmpty()){
-                articleTOList =  articleService.use(articleItemTOS);
+            if (articleArticleItemTOS != null && !articleArticleItemTOS.isEmpty()){
+                articleTOList =  articleService.use(articleArticleItemTOS);
             }
             ProductTO productTO = new ProductTO();
             productTO.setArticles(articleTOList);
-            productTO.setName(itemTO.getName());
+            productTO.setName(productItemTO.getName());
 
             productTOList.add(productTO);
         }

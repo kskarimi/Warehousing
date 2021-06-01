@@ -4,20 +4,20 @@ import java.util.List;
 
 public class ProductsTO {
 
-    private List<ItemTO> products;
+    private List<productItemTO> products;
 
     public ProductsTO() {
     }
 
-    public ProductsTO(List<ItemTO> products) {
+    public ProductsTO(List<productItemTO> products) {
         this.products = products;
     }
 
-    public List<ItemTO> getProducts() {
+    public List<productItemTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ItemTO> products) {
+    public void setProducts(List<productItemTO> products) {
         this.products = products;
     }
 }
