@@ -1,7 +1,7 @@
 package ir.kamalkarimi.warehousing.service;
 
 import ir.kamalkarimi.warehousing.dto.article.ArticleTO;
-import ir.kamalkarimi.warehousing.dto.article.ArticleItemTO;
+import ir.kamalkarimi.warehousing.dto.article.ItemTO;
 import ir.kamalkarimi.warehousing.dto.article.ArticleMapper;
 import ir.kamalkarimi.warehousing.repository.ArticlesManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,18 +45,18 @@ public class ArticleService {
         return articleTOList;
     }
 
-    public List<ArticleTO> use(List<ArticleItemTO> articleItemTOS) {
-        if (articleItemTOS == null || !articleItemTOS.isEmpty()){
+    public List<ArticleTO> use(List<ItemTO> itemTOS) {
+        if (itemTOS == null || !itemTOS.isEmpty()){
             return null;
         }
 
         List<ArticleTO> articleTOList = new ArrayList<>();
-        for (ArticleItemTO articleItemTO : articleItemTOS) {
-            if (articleItemTO == null )
+        for (ItemTO itemTO : itemTOS) {
+            if (itemTO == null )
                 continue;
 
-            Long articleId = articleItemTO.getArticleId();
-            Integer amount = Integer.valueOf(articleItemTO.getAmount());
+            Long articleId = itemTO.getArticleId();
+            Integer amount = Integer.valueOf(itemTO.getAmount());
 
             ArticleTO articleTO = articleMapper.articleToDto(articlesManager.use(articleId,amount));
             if (articleTO == null)

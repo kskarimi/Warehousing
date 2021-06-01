@@ -1,6 +1,7 @@
 package ir.kamalkarimi.warehousing.controller;
 
 import ir.kamalkarimi.warehousing.dto.InventoryTO;
+import ir.kamalkarimi.warehousing.dto.product.ProductTO;
 import ir.kamalkarimi.warehousing.dto.product.ProductsTO;
 import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.service.AjaxService;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class InventoryController extends BaseController {
@@ -56,7 +58,8 @@ public class InventoryController extends BaseController {
     public String showProduct(HttpServletRequest request,HttpServletResponse response){
         super.initializer(request,response);
         ProductsTO products = fileUtil.readFile("products", ProductsTO.class);
-        return ajaxService.toJson(inventoryFacade.index(products));
+        List<ProductTO> productTOS =  inventoryFacade.index(products);
+        return ajaxService.toJson(productTOS);
     }
 
     @ResponseBody

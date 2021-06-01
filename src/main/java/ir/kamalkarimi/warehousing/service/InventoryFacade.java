@@ -1,8 +1,7 @@
 package ir.kamalkarimi.warehousing.service;
 import ir.kamalkarimi.warehousing.dto.*;
-import ir.kamalkarimi.warehousing.dto.article.ArticleItemTO;
+import ir.kamalkarimi.warehousing.dto.article.ItemTO;
 import ir.kamalkarimi.warehousing.dto.article.ArticleTO;
-import ir.kamalkarimi.warehousing.dto.product.ProductItemTO;
 import ir.kamalkarimi.warehousing.dto.product.ProductTO;
 import ir.kamalkarimi.warehousing.dto.product.ProductsTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,30 +43,30 @@ public class InventoryFacade {
     public  List<ProductTO> index(ProductsTO productsTO) {
         if (productsTO == null)
             return null;
-        List<ProductItemTO> productItemTOS = productsTO.getProducts();
-        if (productItemTOS == null || productItemTOS.isEmpty()){
+        List<ir.kamalkarimi.warehousing.dto.product.ItemTO> itemTOS = productsTO.getProducts();
+        if (itemTOS == null || itemTOS.isEmpty()){
             return null;
         }
 
-        return use(productItemTOS);
+        return use(itemTOS);
     }
 
-    public List<ProductTO> use(List<ProductItemTO> productItemTOS) {
-        if (productItemTOS == null || productItemTOS.isEmpty()){
+    public List<ProductTO> use(List<ir.kamalkarimi.warehousing.dto.product.ItemTO> itemTOS) {
+        if (itemTOS == null || itemTOS.isEmpty()){
             return null;
         }
         List<ProductTO> productTOList = new ArrayList<>();
-        for (ProductItemTO productItemTO : productItemTOS) {
-            if (productItemTO == null)
+        for (ir.kamalkarimi.warehousing.dto.product.ItemTO itemTO : itemTOS) {
+            if (itemTO == null)
                 continue;
-            List<ArticleItemTO> articleItemTOS = productItemTO.getArticles();
+            List<ItemTO> articleItemTOS = itemTO.getArticles();
             List<ArticleTO> articleTOList = null;
             if (articleItemTOS != null && !articleItemTOS.isEmpty()){
                 articleTOList =  articleService.use(articleItemTOS);
             }
             ProductTO productTO = new ProductTO();
             productTO.setArticles(articleTOList);
-            productTO.setName(productItemTO.getName());
+            productTO.setName(itemTO.getName());
 
             productTOList.add(productTO);
         }
