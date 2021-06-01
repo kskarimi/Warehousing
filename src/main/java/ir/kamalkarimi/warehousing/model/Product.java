@@ -11,7 +11,7 @@ public class Product extends BaseImpl {
     @Column
     private String name;
 
-    @OneToMany(targetEntity = Article.class,cascade = CascadeType.ALL , mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Article> articles;
 
     public Product() {

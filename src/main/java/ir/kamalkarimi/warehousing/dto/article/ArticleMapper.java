@@ -15,8 +15,4 @@ public interface ArticleMapper {
 
     Article   articleDtoToArticle(ArticleTO articleTO);
 
-    ProductTO productToDto(Product product);
-
-    Product  productDtoToEntity(ProductTO productTO);
-
 }
