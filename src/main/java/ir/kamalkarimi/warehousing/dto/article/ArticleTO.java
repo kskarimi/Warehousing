@@ -1,4 +1,6 @@
-package ir.kamalkarimi.warehousing.dto;
+package ir.kamalkarimi.warehousing.dto.article;
+
+import ir.kamalkarimi.warehousing.dto.product.ProductTO;
 
 public class ArticleTO {
     private Long id;

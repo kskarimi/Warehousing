@@ -1,4 +1,4 @@
-package ir.kamalkarimi.warehousing.dto;
+package ir.kamalkarimi.warehousing.dto.product;
 
 import java.util.List;
 

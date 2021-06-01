@@ -1,5 +1,10 @@
 package ir.kamalkarimi.warehousing.service;
 import ir.kamalkarimi.warehousing.dto.*;
+import ir.kamalkarimi.warehousing.dto.article.ArticleItemTO;
+import ir.kamalkarimi.warehousing.dto.article.ArticleTO;
+import ir.kamalkarimi.warehousing.dto.product.ProductItemTO;
+import ir.kamalkarimi.warehousing.dto.product.ProductTO;
+import ir.kamalkarimi.warehousing.dto.product.ProductsTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

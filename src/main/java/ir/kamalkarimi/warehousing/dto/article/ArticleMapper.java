@@ -1,5 +1,6 @@
-package ir.kamalkarimi.warehousing.dto;
+package ir.kamalkarimi.warehousing.dto.article;
 
+import ir.kamalkarimi.warehousing.dto.product.ProductTO;
 import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.model.Product;
 import org.mapstruct.Mapper;

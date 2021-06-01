@@ -1,4 +1,6 @@
-package ir.kamalkarimi.warehousing.dto;
+package ir.kamalkarimi.warehousing.dto.product;
+
+import ir.kamalkarimi.warehousing.dto.article.ArticleItemTO;
 
 import java.util.List;
 

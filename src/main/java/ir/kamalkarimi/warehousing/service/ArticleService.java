@@ -1,8 +1,8 @@
 package ir.kamalkarimi.warehousing.service;
 
-import ir.kamalkarimi.warehousing.dto.ArticleTO;
-import ir.kamalkarimi.warehousing.dto.ArticleItemTO;
-import ir.kamalkarimi.warehousing.dto.ArticleMapper;
+import ir.kamalkarimi.warehousing.dto.article.ArticleTO;
+import ir.kamalkarimi.warehousing.dto.article.ArticleItemTO;
+import ir.kamalkarimi.warehousing.dto.article.ArticleMapper;
 import ir.kamalkarimi.warehousing.repository.ArticlesManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

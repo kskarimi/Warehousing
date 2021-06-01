@@ -1,7 +1,7 @@
 package ir.kamalkarimi.warehousing.controller;
 
 import ir.kamalkarimi.warehousing.dto.InventoryTO;
-import ir.kamalkarimi.warehousing.dto.ProductsTO;
+import ir.kamalkarimi.warehousing.dto.product.ProductsTO;
 import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.service.AjaxService;
 import ir.kamalkarimi.warehousing.service.RedirectService;
