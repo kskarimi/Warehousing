@@ -5,6 +5,9 @@ import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @Mapper
 public interface ArticleMapper {
@@ -14,5 +17,13 @@ public interface ArticleMapper {
     ArticleTO articleToDto(Article article);
 
     Article   articleDtoToArticle(ArticleTO articleTO);
+
+    List<ArticleTO> articleToDto(List<Article> article);
+
+    List<Article>   articleDtoToArticle(List<ArticleTO> articleTO);
+
+    ProductTO productToDto(Product product);
+
+    Product  productDtoToEntity(ProductTO productTO);
 
 }

@@ -12,7 +12,11 @@ public interface BaseManager <T extends Base>{
 
     T index(T base);
 
-    List<T> index(Iterable<T> base);
+    List<T> index(List<T> base);
+
+    T  saveAndFlush(T base);
+
+    List<T> saveAllAndFlush(List<T> base);
 
     T getById(long id);
 

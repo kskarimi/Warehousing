@@ -2,11 +2,11 @@ package ir.kamalkarimi.warehousing.service;
 
 import ir.kamalkarimi.warehousing.dto.product.ProductTO;
 import ir.kamalkarimi.warehousing.dto.product.ProductMapper;
+import ir.kamalkarimi.warehousing.model.Product;
 import ir.kamalkarimi.warehousing.repository.ProductManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,27 +21,15 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-
-    public ProductTO index(ProductTO productTO){
-        if (productTO == null)
-            return null;
-        return productMapper.productToDto(productManager.saveAndFlush(productMapper.productDtoToEntity(productTO)));
-    }
-
     public List<ProductTO> index(List<ProductTO> productTOS){
         if (productTOS == null || productTOS.isEmpty()){
             return null;
         }
 
-        List<ProductTO> productTOList = new ArrayList<>();
+        List<Product> probes = productMapper.productDtoToEntity(productTOS);
+        probes = productManager.index(probes);
 
-        for (ProductTO productTO : productTOS) {
-            if (productTO == null)
-                continue;
-            productTOList.add(this.index(productTO));
-        }
-
-        return productTOList;
+        return productMapper.productToDto(probes);
     }
 
 }

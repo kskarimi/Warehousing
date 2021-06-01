@@ -1,10 +1,12 @@
 package ir.kamalkarimi.warehousing.repository;
 
+import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -24,7 +26,8 @@ public class ArticlesManager extends BaseManagerImpl<Article> {
         return repository;
     }
 
-    public Article use(Long articleId, Integer amount) {
+
+    public Article use(Long articleId, Integer amount)  {
         if (articleId == null)
             return null;
         Optional<Article> optionalArticle = repository.findById(articleId);
@@ -34,9 +37,9 @@ public class ArticlesManager extends BaseManagerImpl<Article> {
 
         Article article = optionalArticle.get();
         Integer stock = article.getStock() == null ? 0: article.getStock();
-        Integer remind = stock - amount;
+        int remind = stock - amount;
 
-        if (remind == null ||  remind < 0){
+        if (remind < 0){
             return null;
         }
             article.setStock(amount);

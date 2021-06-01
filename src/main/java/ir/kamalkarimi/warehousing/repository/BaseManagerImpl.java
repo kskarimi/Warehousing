@@ -20,8 +20,18 @@ public abstract class BaseManagerImpl<T extends Base> implements BaseManager<T> 
 
     @Override
     @Transactional
-    public List<T> index(Iterable<T> base) {
+    public List<T> index(List<T> base) {
         return getRepository().saveAll(base);
+    }
+
+    @Override
+    public T saveAndFlush(T base) {
+        return getRepository().saveAndFlush(base);
+    }
+
+    @Override
+    public List<T> saveAllAndFlush(List<T> base) {
+        return getRepository().saveAllAndFlush(base);
     }
 
     @Override

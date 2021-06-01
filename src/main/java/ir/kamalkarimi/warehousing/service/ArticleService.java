@@ -3,10 +3,12 @@ package ir.kamalkarimi.warehousing.service;
 import ir.kamalkarimi.warehousing.dto.article.ArticleTO;
 import ir.kamalkarimi.warehousing.dto.article.ArticleItemTO;
 import ir.kamalkarimi.warehousing.dto.article.ArticleMapper;
+import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.repository.ArticlesManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,18 +37,11 @@ public class ArticleService {
             return null;
         }
 
-        List<ArticleTO> articleTOList = new ArrayList<>();
-        for (ArticleTO articleTO : articleTOS) {
-            if (articleTO == null)
-                continue;
-            articleTOList.add(this.index(articleTO));
-        }
-
-        return articleTOList;
+        return articleMapper.articleToDto(articlesManager.index(articleMapper.articleDtoToArticle(articleTOS)));
     }
 
     public List<ArticleTO> use(List<ArticleItemTO> articleItemTOS) {
-        if (articleItemTOS == null || !articleItemTOS.isEmpty()){
+        if (articleItemTOS == null || articleItemTOS.isEmpty()){
             return null;
         }
 

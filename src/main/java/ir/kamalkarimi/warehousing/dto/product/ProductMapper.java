@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper
 public interface ProductMapper {
@@ -17,11 +18,15 @@ public interface ProductMapper {
 
     Product  productDtoToEntity(ProductTO productTO);
 
+    List<ProductTO> productToDto(List<Product> products);
+
+    List<Product>  productDtoToEntity(List<ProductTO> productTOS);
+
     ArticleTO articleToDto(Article article);
 
     Article   articleDtoToArticle(ArticleTO articleTO);
 
-    List<Article> articleDtosToEntities(List<ArticleTO> articleTOS);
+    Set<Article> articleDtosToEntities(Set<ArticleTO> articleTOS);
 
-    List<ArticleTO> articlesToArticleDtos(List<Article> articles);
+    Set<ArticleTO> articlesToArticleDtos(Set<Article> articles);
 }
