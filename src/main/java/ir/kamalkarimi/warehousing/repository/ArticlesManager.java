@@ -1,6 +1,5 @@
 package ir.kamalkarimi.warehousing.repository;
 
-import ir.kamalkarimi.warehousing.dto.ArticleDto;
 import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;

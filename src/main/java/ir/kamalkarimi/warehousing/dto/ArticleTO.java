@@ -1,12 +1,12 @@
 package ir.kamalkarimi.warehousing.dto;
 
-public class ArticleDto {
+public class ArticleTO {
     private Long id;
     private String name;
     private Integer stock;
-    private ProductDto product;
+    private ProductTO product;
 
-    public ArticleDto() {
+    public ArticleTO() {
     }
 
     public Long getId() {
@@ -33,11 +33,11 @@ public class ArticleDto {
         this.stock = stock;
     }
 
-    public ProductDto getProduct() {
+    public ProductTO getProduct() {
         return product;
     }
 
-    public void setProduct(ProductDto product) {
+    public void setProduct(ProductTO product) {
         this.product = product;
     }
 }

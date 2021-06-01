@@ -10,12 +10,12 @@ public interface ArticleMapper {
 
     ArticleMapper ARTICLE_MAPPER = Mappers.getMapper(ArticleMapper.class);
 
-    ArticleDto articleToDto(Article article);
+    ArticleTO articleToDto(Article article);
 
-    Article   articleDtoToArticle(ArticleDto articleDto);
+    Article   articleDtoToArticle(ArticleTO articleTO);
 
-    ProductDto productToDto(Product product);
+    ProductTO productToDto(Product product);
 
-    Product  productDtoToEntity(ProductDto productDto);
+    Product  productDtoToEntity(ProductTO productTO);
 
 }

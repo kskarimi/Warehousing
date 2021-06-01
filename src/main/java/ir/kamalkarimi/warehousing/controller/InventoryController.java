@@ -1,9 +1,7 @@
 package ir.kamalkarimi.warehousing.controller;
 
-import com.google.gson.Gson;
-import ir.kamalkarimi.warehousing.dto.ArticleDto;
-import ir.kamalkarimi.warehousing.dto.InventoryDto;
-import ir.kamalkarimi.warehousing.dto.ProductsDto;
+import ir.kamalkarimi.warehousing.dto.InventoryTO;
+import ir.kamalkarimi.warehousing.dto.ProductsTO;
 import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.service.AjaxService;
 import ir.kamalkarimi.warehousing.service.RedirectService;
@@ -17,8 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 @Controller
 public class InventoryController extends BaseController {
@@ -37,37 +33,38 @@ public class InventoryController extends BaseController {
     }
 
     @GetMapping("/")
-    public String homePage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
-        super.initializer(request,response,attributes);
+    public String homePage(HttpServletRequest request,HttpServletResponse response){
+        super.initializer(request,response);
         return RedirectService.HOME_PAGE;
     }
 
     @GetMapping(value = "/product")
-    public String productPage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
-        super.initializer(request,response,attributes);
+    public String productPage(HttpServletRequest request,HttpServletResponse response){
+        super.initializer(request,response);
         return RedirectService.PRODUCT_PAGE;
+    }
+
+
+    @GetMapping(value = "/inventory")
+    public String inventoryPage(HttpServletRequest request,HttpServletResponse response){
+        super.initializer(request,response);
+        return RedirectService.INVENTORY_PAGE;
     }
 
     @ResponseBody
     @PostMapping(value = "/product")
     public String showProduct(HttpServletRequest request,HttpServletResponse response){
         super.initializer(request,response);
-        ProductsDto products = fileUtil.readFile("products", ProductsDto.class);
+        ProductsTO products = fileUtil.readFile("products", ProductsTO.class);
         return ajaxService.toJson(inventoryFacade.index(products));
-    }
-
-    @GetMapping(value = "/inventory")
-    public String inventoryPage(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attributes){
-        super.initializer(request,response,attributes);
-        return RedirectService.INVENTORY_PAGE;
     }
 
     @ResponseBody
     @PostMapping(value = "/inventory")
     public String showInventory(HttpServletRequest request, HttpServletResponse response) {
         super.initializer(request, response);
-        InventoryDto inventoryDto = fileUtil.readFile("inventory", InventoryDto.class);
-        return ajaxService.toJson(inventoryFacade.index(inventoryDto));
+        InventoryTO inventoryTO = fileUtil.readFile("inventory", InventoryTO.class);
+        return ajaxService.toJson(inventoryFacade.index(inventoryTO));
     }
 
     @PostMapping(value = "/upload")

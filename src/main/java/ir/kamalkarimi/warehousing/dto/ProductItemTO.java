@@ -2,17 +2,17 @@ package ir.kamalkarimi.warehousing.dto;
 
 import java.util.List;
 
-public class ProductItemDto {
+public class ProductItemTO {
 
     private String name;
 
-    private List<ArticleItemDto> articles;
+    private List<ArticleItemTO> articles;
 
 
-    public ProductItemDto() {
+    public ProductItemTO() {
     }
 
-    public ProductItemDto(String name, List<ArticleItemDto> articles) {
+    public ProductItemTO(String name, List<ArticleItemTO> articles) {
         this.name = name;
         this.articles = articles;
     }
@@ -25,11 +25,11 @@ public class ProductItemDto {
         this.name = name;
     }
 
-    public List<ArticleItemDto> getArticles() {
+    public List<ArticleItemTO> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleItemDto> articles) {
+    public void setArticles(List<ArticleItemTO> articles) {
         this.articles = articles;
     }
 }

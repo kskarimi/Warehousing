@@ -1,6 +1,6 @@
 package ir.kamalkarimi.warehousing.service;
 
-import ir.kamalkarimi.warehousing.dto.ProductDto;
+import ir.kamalkarimi.warehousing.dto.ProductTO;
 import ir.kamalkarimi.warehousing.dto.ProductMapper;
 import ir.kamalkarimi.warehousing.repository.ProductManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,26 +22,26 @@ public class ProductService {
     }
 
 
-    public ProductDto index(ProductDto productDto){
-        if (productDto == null)
+    public ProductTO index(ProductTO productTO){
+        if (productTO == null)
             return null;
-        return productMapper.productToDto(productManager.saveAndFlush(productMapper.productDtoToEntity(productDto)));
+        return productMapper.productToDto(productManager.saveAndFlush(productMapper.productDtoToEntity(productTO)));
     }
 
-    public List<ProductDto> index(List<ProductDto> productDtos){
-        if (productDtos == null || productDtos.isEmpty()){
+    public List<ProductTO> index(List<ProductTO> productTOS){
+        if (productTOS == null || productTOS.isEmpty()){
             return null;
         }
 
-        List<ProductDto> productDtoList = new ArrayList<>();
+        List<ProductTO> productTOList = new ArrayList<>();
 
-        for (ProductDto productDto : productDtos) {
-            if (productDto == null)
+        for (ProductTO productTO : productTOS) {
+            if (productTO == null)
                 continue;
-            productDtoList.add(this.index(productDto));
+            productTOList.add(this.index(productTO));
         }
 
-        return productDtoList;
+        return productTOList;
     }
 
 }

@@ -1,16 +1,14 @@
 package ir.kamalkarimi.warehousing.service;
 
-import ir.kamalkarimi.warehousing.dto.ArticleDto;
-import ir.kamalkarimi.warehousing.dto.ArticleItemDto;
+import ir.kamalkarimi.warehousing.dto.ArticleTO;
+import ir.kamalkarimi.warehousing.dto.ArticleItemTO;
 import ir.kamalkarimi.warehousing.dto.ArticleMapper;
-import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.repository.ArticlesManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ArticleService {
@@ -25,46 +23,46 @@ public class ArticleService {
     }
 
 
-    public ArticleDto index(ArticleDto articleDto){
-        if (articleDto == null){
+    public ArticleTO index(ArticleTO articleTO){
+        if (articleTO == null){
             return null;
         }
-        return articleMapper.articleToDto(articlesManager.index(articleMapper.articleDtoToArticle(articleDto)));
+        return articleMapper.articleToDto(articlesManager.index(articleMapper.articleDtoToArticle(articleTO)));
     }
 
-    public List<ArticleDto> index(List<ArticleDto> articleDtos){
-        if (articleDtos == null || articleDtos.isEmpty()){
+    public List<ArticleTO> index(List<ArticleTO> articleTOS){
+        if (articleTOS == null || articleTOS.isEmpty()){
             return null;
         }
 
-        List<ArticleDto> articleDtoList = new ArrayList<>();
-        for (ArticleDto articleDto : articleDtos) {
-            if (articleDto == null)
+        List<ArticleTO> articleTOList = new ArrayList<>();
+        for (ArticleTO articleTO : articleTOS) {
+            if (articleTO == null)
                 continue;
-            articleDtoList.add(this.index(articleDto));
+            articleTOList.add(this.index(articleTO));
         }
 
-        return articleDtoList;
+        return articleTOList;
     }
 
-    public List<ArticleDto> use(List<ArticleItemDto> articleItemDtos) {
-        if (articleItemDtos == null || !articleItemDtos.isEmpty()){
+    public List<ArticleTO> use(List<ArticleItemTO> articleItemTOS) {
+        if (articleItemTOS == null || !articleItemTOS.isEmpty()){
             return null;
         }
 
-        List<ArticleDto> articleDtoList = new ArrayList<>();
-        for (ArticleItemDto articleItemDto : articleItemDtos) {
-            if (articleItemDto == null )
+        List<ArticleTO> articleTOList = new ArrayList<>();
+        for (ArticleItemTO articleItemTO : articleItemTOS) {
+            if (articleItemTO == null )
                 continue;
 
-            Long articleId = articleItemDto.getArticleId();
-            Integer amount = Integer.valueOf(articleItemDto.getAmount());
+            Long articleId = articleItemTO.getArticleId();
+            Integer amount = Integer.valueOf(articleItemTO.getAmount());
 
-            ArticleDto articleDto = articleMapper.articleToDto(articlesManager.use(articleId,amount));
-            if (articleDto == null)
+            ArticleTO articleTO = articleMapper.articleToDto(articlesManager.use(articleId,amount));
+            if (articleTO == null)
                 continue;
-            articleDtoList.add(articleDto);
+            articleTOList.add(articleTO);
         }
-        return articleDtoList;
+        return articleTOList;
     }
 }

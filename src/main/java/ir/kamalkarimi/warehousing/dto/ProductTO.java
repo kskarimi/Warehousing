@@ -2,12 +2,12 @@ package ir.kamalkarimi.warehousing.dto;
 
 import java.util.List;
 
-public class ProductDto {
+public class ProductTO {
     private Long   id;
     private String name;
-    private List<ArticleDto> articles;
+    private List<ArticleTO> articles;
 
-    public ProductDto() {
+    public ProductTO() {
     }
 
     public Long getId() {
@@ -26,11 +26,11 @@ public class ProductDto {
         this.name = name;
     }
 
-    public List<ArticleDto> getArticles() {
+    public List<ArticleTO> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleDto> articles) {
+    public void setArticles(List<ArticleTO> articles) {
         this.articles = articles;
     }
 }

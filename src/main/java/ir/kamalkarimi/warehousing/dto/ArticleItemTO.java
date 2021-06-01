@@ -1,13 +1,13 @@
 package ir.kamalkarimi.warehousing.dto;
 
-public class ArticleItemDto {
+public class ArticleItemTO {
     private Long articleId;
     private String amount;
 
-    public ArticleItemDto() {
+    public ArticleItemTO() {
     }
 
-    public ArticleItemDto(Long articleId, String amount) {
+    public ArticleItemTO(Long articleId, String amount) {
         this.articleId = articleId;
         this.amount = amount;
     }

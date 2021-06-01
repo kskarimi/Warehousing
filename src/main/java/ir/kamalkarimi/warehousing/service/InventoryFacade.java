@@ -1,6 +1,5 @@
 package ir.kamalkarimi.warehousing.service;
 import ir.kamalkarimi.warehousing.dto.*;
-import ir.kamalkarimi.warehousing.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,52 +20,52 @@ public class InventoryFacade {
         this.productService = productService;
     }
 
-    public InventoryDto index(InventoryDto inventoryDto) {
-        if (inventoryDto == null)
+    public InventoryTO index(InventoryTO inventoryTO) {
+        if (inventoryTO == null)
             return null;
-        ArticleDto []articleDtos = inventoryDto.getInventory();
-        if (articleDtos == null){
+        ArticleTO[] articleTOS = inventoryTO.getInventory();
+        if (articleTOS == null){
             return null;
         }
-        List<ArticleDto> articleDtoList = articleService.index(Arrays.asList(articleDtos));
-        InventoryDto inventory = null;
-        if (articleDtoList != null && !articleDtoList.isEmpty()){
-            inventory = new InventoryDto();
-            inventory.setInventory(articleDtoList.toArray(new ArticleDto[articleDtoList.size()]));
+        List<ArticleTO> articleTOList = articleService.index(Arrays.asList(articleTOS));
+        InventoryTO inventory = null;
+        if (articleTOList != null && !articleTOList.isEmpty()){
+            inventory = new InventoryTO();
+            inventory.setInventory(articleTOList.toArray(new ArticleTO[articleTOList.size()]));
         }
         return inventory;
     }
 
-    public  List<ProductDto> index(ProductsDto productsDto) {
-        if (productsDto == null)
+    public  List<ProductTO> index(ProductsTO productsTO) {
+        if (productsTO == null)
             return null;
-        List<ProductItemDto> productItemDtos = productsDto.getProducts();
-        if (productItemDtos == null || productItemDtos.isEmpty()){
+        List<ProductItemTO> productItemTOS = productsTO.getProducts();
+        if (productItemTOS == null || productItemTOS.isEmpty()){
             return null;
         }
 
-        return use(productItemDtos);
+        return use(productItemTOS);
     }
 
-    public List<ProductDto> use(List<ProductItemDto> productItemDtos) {
-        if (productItemDtos == null || productItemDtos.isEmpty()){
+    public List<ProductTO> use(List<ProductItemTO> productItemTOS) {
+        if (productItemTOS == null || productItemTOS.isEmpty()){
             return null;
         }
-        List<ProductDto> productDtoList = new ArrayList<>();
-        for (ProductItemDto productItemDto : productItemDtos) {
-            if (productItemDto == null)
+        List<ProductTO> productTOList = new ArrayList<>();
+        for (ProductItemTO productItemTO : productItemTOS) {
+            if (productItemTO == null)
                 continue;
-            List<ArticleItemDto> articleItemDtos = productItemDto.getArticles();
-            List<ArticleDto> articleDtoList = null;
-            if (articleItemDtos != null && !articleItemDtos.isEmpty()){
-                articleDtoList =  articleService.use(articleItemDtos);
+            List<ArticleItemTO> articleItemTOS = productItemTO.getArticles();
+            List<ArticleTO> articleTOList = null;
+            if (articleItemTOS != null && !articleItemTOS.isEmpty()){
+                articleTOList =  articleService.use(articleItemTOS);
             }
-            ProductDto productDto = new ProductDto();
-            productDto.setArticles(articleDtoList);
-            productDto.setName(productItemDto.getName());
+            ProductTO productTO = new ProductTO();
+            productTO.setArticles(articleTOList);
+            productTO.setName(productItemTO.getName());
 
-            productDtoList.add(productDto);
+            productTOList.add(productTO);
         }
-        return productService.index(productDtoList);
+        return productService.index(productTOList);
     }
 }

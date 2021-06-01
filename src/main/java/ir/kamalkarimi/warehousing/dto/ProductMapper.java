@@ -12,15 +12,15 @@ public interface ProductMapper {
 
     ProductMapper PRODUCT_MAPPER = Mappers.getMapper(ProductMapper.class);
 
-    ProductDto productToDto(Product product);
+    ProductTO productToDto(Product product);
 
-    Product  productDtoToEntity(ProductDto productDto);
+    Product  productDtoToEntity(ProductTO productTO);
 
-    ArticleDto articleToDto(Article article);
+    ArticleTO articleToDto(Article article);
 
-    Article   articleDtoToArticle(ArticleDto articleDto);
+    Article   articleDtoToArticle(ArticleTO articleTO);
 
-    List<Article> articleDtosToEntities(List<ArticleDto> articleDtos);
+    List<Article> articleDtosToEntities(List<ArticleTO> articleTOS);
 
-    List<ArticleDto> articlesToArticleDtos(List<Article> articles);
+    List<ArticleTO> articlesToArticleDtos(List<Article> articles);
 }
