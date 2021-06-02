@@ -1,24 +1,24 @@
 package ir.kamalkarimi.warehousing.repository;
 
-import ir.kamalkarimi.warehousing.model.Product;
+import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductManager extends BaseManagerImpl<Product> {
+public class ArticleManager extends BaseManagerImpl<Article> {
 
-    private final ProductRepository repository;
+    private final ArticleRepository repository;
     private final BaseUtil baseUtil;
 
     @Autowired
-    public ProductManager(ProductRepository repository, BaseUtil baseUtil) {
+    public ArticleManager(ArticleRepository repository, BaseUtil baseUtil) {
         this.repository = repository;
         this.baseUtil = baseUtil;
     }
 
     @Override
-    protected BaseRepository<Product> getRepository() {
+    protected BaseRepository<Article> getRepository() {
         return repository;
     }
 }

@@ -1,4 +1,4 @@
-package ir.kamalkarimi.warehousing.dto.article;
+package ir.kamalkarimi.warehousing.dto;
 
 
 public class ArticleTO {

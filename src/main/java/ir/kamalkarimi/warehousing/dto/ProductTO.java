@@ -1,13 +1,8 @@
-package ir.kamalkarimi.warehousing.dto.product;
-
-import ir.kamalkarimi.warehousing.dto.article.ArticleTO;
-
-import java.util.List;
+package ir.kamalkarimi.warehousing.dto;
 
 public class ProductTO {
     private Long   id;
     private String name;
-    private List<ArticleTO> articles;
 
     public ProductTO() {
     }
@@ -26,13 +21,5 @@ public class ProductTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<ArticleTO> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<ArticleTO> articles) {
-        this.articles = articles;
     }
 }

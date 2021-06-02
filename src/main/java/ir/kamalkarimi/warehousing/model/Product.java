@@ -12,9 +12,6 @@ public class Product extends BaseImpl {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "product")
-    private Set<Article> articles;
-
     public Product() {
     }
 
@@ -26,11 +23,4 @@ public class Product extends BaseImpl {
         this.name = name;
     }
 
-    public Set<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
-    }
 }

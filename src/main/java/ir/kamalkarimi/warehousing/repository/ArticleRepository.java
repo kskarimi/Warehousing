@@ -4,5 +4,5 @@ import ir.kamalkarimi.warehousing.model.Article;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ArticlesRepository extends BaseRepository<Article> {
+public interface ArticleRepository extends BaseRepository<Article> {
 }

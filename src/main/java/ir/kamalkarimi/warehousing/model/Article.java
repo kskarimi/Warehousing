@@ -12,9 +12,6 @@ public class Article extends BaseImpl {
     @Column
     private Integer stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
-
     public Article() {
     }
 
@@ -32,13 +29,5 @@ public class Article extends BaseImpl {
 
     public void setStock(Integer stock) {
         this.stock = stock;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 }
