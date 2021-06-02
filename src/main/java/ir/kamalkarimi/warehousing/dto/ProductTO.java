@@ -5,6 +5,16 @@ public class ProductTO {
     private String name;
 
     public ProductTO() {
+        this(null,null);
+    }
+
+    public ProductTO(String name) {
+        this(null,name);
+    }
+
+    public ProductTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Long getId() {

@@ -9,7 +9,7 @@ import java.util.Set;
 @SequenceGenerator(name = "id_gen", sequenceName = "product_seq", allocationSize = 1)
 public class Product extends BaseImpl {
 
-    @Column
+    @Column(unique = true)
     private String name;
 
     public Product() {

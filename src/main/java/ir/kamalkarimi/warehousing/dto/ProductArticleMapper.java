@@ -1,7 +1,7 @@
 package ir.kamalkarimi.warehousing.dto;
 
 import ir.kamalkarimi.warehousing.model.Article;
-import ir.kamalkarimi.warehousing.model.Component;
+import ir.kamalkarimi.warehousing.model.ProductArticle;
 import ir.kamalkarimi.warehousing.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -10,17 +10,17 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper
-public interface ComponentMapper {
+public interface ProductArticleMapper {
 
-    ComponentMapper COMPONENT_MAPPER = Mappers.getMapper(ComponentMapper.class);
+    ProductArticleMapper COMPONENT_MAPPER = Mappers.getMapper(ProductArticleMapper.class);
 
-    ComponentTO componentToComponentTO(Component component);
+    ProductArticleTO componentToComponentTO(ProductArticle productArticle);
 
-    Component  componentTOToComponent(ComponentTO ComponentTO);
+    ProductArticle componentTOToComponent(ProductArticleTO ProductArticleTO);
 
-    List<ComponentTO> componentsToComponentTOs(List<Component> components);
+    List<ProductArticleTO> componentsToComponentTOs(List<ProductArticle> productArticles);
 
-    List<Component>  componentTOsToComponents(List<ComponentTO> ComponentTOs);
+    List<ProductArticle>  componentTOsToComponents(List<ProductArticleTO> productArticleTOS);
 
     ArticleTO articleToArticleTO(Article article);
 

@@ -7,6 +7,17 @@ public class ArticleTO {
     private Integer stock;
 
     public ArticleTO() {
+        this(null,null,null);
+    }
+
+    public ArticleTO(String name, Integer stock) {
+        this(null,name,stock);
+    }
+
+    public ArticleTO(Long id, String name, Integer stock) {
+        this.id = id;
+        this.name = name;
+        this.stock = stock;
     }
 
     public Long getId() {

@@ -3,7 +3,9 @@ package ir.kamalkarimi.warehousing.dto;
 import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.model.Product;
 
-public class ComponentTO {
+import java.util.List;
+
+public class ProductArticleTO {
 
     private Long id;
 
@@ -13,7 +15,7 @@ public class ComponentTO {
 
     private Integer amount;
 
-    public ComponentTO() {
+    public ProductArticleTO() {
     }
 
 
