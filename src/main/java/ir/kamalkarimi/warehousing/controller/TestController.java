@@ -1,12 +1,11 @@
 package ir.kamalkarimi.warehousing.controller;
 
-import ir.kamalkarimi.warehousing.dto.ArticleTO;
-import ir.kamalkarimi.warehousing.dto.ProductArticleTO;
-import ir.kamalkarimi.warehousing.dto.ProductTO;
+import ir.kamalkarimi.warehousing.dto.*;
 import ir.kamalkarimi.warehousing.service.AjaxService;
 import ir.kamalkarimi.warehousing.service.ArticleService;
 import ir.kamalkarimi.warehousing.service.InventoryFacade;
 import ir.kamalkarimi.warehousing.service.ProductService;
+import ir.kamalkarimi.warehousing.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +25,9 @@ public class TestController extends BaseController {
 
     @Autowired
     InventoryFacade inventoryFacade;
+
+    @Autowired
+    FileUtil fileUtil;
 
     @ResponseBody
     @GetMapping(value = "/test/article")
@@ -80,5 +82,14 @@ public class TestController extends BaseController {
         productArticleTO.setProductAmount(2);
 
         return ajaxService.toJson(inventoryFacade.loadingProduct(productArticleTO));
+    }
+
+
+    @ResponseBody
+    @GetMapping(value = "/test/upload")
+    public String uploadFile(){
+//       ReceivedProductsTO productsTOS =  fileUtil.readFile("products",ReceivedProductsTO.class);
+       ReceivedArticleTO productsTOS =  fileUtil.readFile("inventory", ReceivedArticleTO.class);
+       return ajaxService.toJson(productsTOS);
     }
 }

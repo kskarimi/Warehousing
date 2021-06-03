@@ -1,6 +1,7 @@
 package ir.kamalkarimi.warehousing.util;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import ir.kamalkarimi.warehousing.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,6 +46,18 @@ public class FileUtil {
         String path = this.getFilePath(fileName).toString()+".json";
         try(Reader reader = new FileReader(path)){
             return this.gson.fromJson(reader,tClass);
+        }catch (IOException ex){
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    public <T> T readFile(String fileName, TypeToken<T> tTypeToken){
+        if (!StringUtils.hasLength(fileName))
+            return null;
+        String path = this.getFilePath(fileName).toString()+".json";
+        try(Reader reader = new FileReader(path)){
+            return this.gson.fromJson(reader,tTypeToken.getType());
         }catch (IOException ex){
             System.out.println(ex);
             return null;

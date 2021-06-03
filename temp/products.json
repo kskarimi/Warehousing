@@ -4,16 +4,16 @@
       "name": "Dining Chair",
       "articles": [
         {
-          "articleId": "1",
-          "amount": 4
+          "id": "1",
+          "stock": 4
         },
         {
-          "articleId": "2",
-          "amount": 8
+          "id": "2",
+          "stock": 8
         },
         {
-          "articleId": "3",
-          "amount": 1
+          "id": "3",
+          "stock": 1
         }
       ]
     },
@@ -21,16 +21,16 @@
       "name": "Dinning Table",
       "articles": [
         {
-          "articleId": "1",
-          "amount": 4
+          "id": "1",
+          "stock": 4
         },
         {
-          "articleId": "2",
-          "amount": 8
+          "id": "2",
+          "stock": 8
         },
         {
-          "articleId": "4",
-          "amount": 1
+          "id": "4",
+          "stock": 1
         }
       ]
     }

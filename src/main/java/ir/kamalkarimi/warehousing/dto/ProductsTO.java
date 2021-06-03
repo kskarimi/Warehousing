@@ -1,20 +1,13 @@
 package ir.kamalkarimi.warehousing.dto;
 
 
-import java.util.List;
-
 public class ProductsTO {
 
     private String name;
 
-    private List<ArticleTO> articles;
+    private ArticleTO []articles;
 
     public ProductsTO() {
-    }
-
-    public ProductsTO(String name, List<ArticleTO> articles) {
-        this.name = name;
-        this.articles = articles;
     }
 
     public String getName() {
@@ -25,11 +18,11 @@ public class ProductsTO {
         this.name = name;
     }
 
-    public List<ArticleTO> getArticles() {
+    public ArticleTO[] getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleTO> articles) {
+    public void setArticles(ArticleTO[] articles) {
         this.articles = articles;
     }
 }
