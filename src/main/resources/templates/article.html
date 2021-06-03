@@ -19,8 +19,8 @@
             <div class="col-md-8 mx-auto">
                 <nav class="nav navbar-dark bg-dark custom-nav">
                     <a href="/" class="navbar-brand">Home</a>
-                    <a href="/inventory" class="navbar-brand">Article</a>
-                    <a href="/product" class="navbar-brand">Product</a>
+                    <a href="/article" class="navbar-brand">Article</a>
+                    <a href="/inventory" class="navbar-brand">Product</a>
                 </nav>
                 <h2>Upload Article data</h2>
                 <div>
@@ -34,28 +34,10 @@
                     </div>
                     <div style="margin-top: 10px;margin-bottom: 10px">
                         <button type="submit" style="width: 80px;" class="btn btn-primary">Upload</button>
-                        <button type="button" style="width: 80px;" onclick="showInventory()" class="btn btn-primary">Push</button>
+<!--                        <button type="button" style="width: 80px;" onclick="showInventory()" class="btn btn-primary">Push</button>-->
                     </div>
                 </form>
                 <div id="inventoryDivId">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>NAME</th>
-                            <th>STOCK</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                        </tr>
-                        <tr th:if="${result != null && !result.empty}" th:each="item : ${result}">
-                            <td><span th:text="${item.getId()}">#</span></td>
-                            <td><span th:text="${item.getName()}">NAME</span></td>
-                            <td><span th:text="${item.getStock()}">STOCK</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
@@ -64,6 +46,9 @@
 </body>
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="application/javascript"></script>
 <script>
+    $(document).ready(function () {
+        showInventory();
+    })
     function showInventory(){
         $.ajax({
            url:"/article/loadingarticles",

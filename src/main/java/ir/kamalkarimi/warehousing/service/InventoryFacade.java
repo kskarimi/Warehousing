@@ -6,9 +6,7 @@ import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -50,11 +48,11 @@ public class InventoryFacade {
         return productArticleService.index(productArticleTO);
     }
 
-    public List<ProductArticleTO> loadingProduct(List<ProductsTO> productsTOList) {
+    public Set<ProductTO> loadingProduct(List<ProductsTO> productsTOList) {
         if (baseUile.isNull(productsTOList))
             return null;
 
-        List<ProductArticleTO> productArticleTOS = new ArrayList<>();
+        Set<ProductTO> productTOS = new HashSet<>();
         for (ProductsTO productsTO : productsTOList) {
             if (baseUile.isNull(productsTO))
                 continue;
@@ -72,9 +70,10 @@ public class InventoryFacade {
                 productArticleTO.setProductAmount(articleTO.getStock());
                 productArticleTO.setArticle(articleTO);
 
-                productArticleTOS.add(this.loadingProduct(productArticleTO));
+                productArticleTO = this.loadingProduct(productArticleTO);
+                productTOS.add(productArticleTO.getProduct());
             }
         }
-        return productArticleTOS;
+        return productTOS;
     }
 }

@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class InventoryController extends BaseController {
@@ -109,9 +111,10 @@ public class InventoryController extends BaseController {
                 message.put(AjaxService.STATUS, HttpStatus.NOT_FOUND);
                 message.put(AjaxService.RESULT, "Not found products.json file !");
             } else {
-                List<ProductArticleTO> productArticleTOS = inventoryFacade.loadingProduct(productsTOList);
+                Set<ProductTO> productTOS = inventoryFacade.loadingProduct(productsTOList);
+
                 message.put(AjaxService.STATUS, HttpStatus.OK);
-                message.put(AjaxService.RESULT, productArticleTOS);
+                message.put(AjaxService.RESULT, productTOS);
             }
         }
         return ajaxService.toJson(message);

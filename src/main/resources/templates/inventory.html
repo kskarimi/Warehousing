@@ -32,27 +32,11 @@
                     </div>
                     <div style="margin-top: 10px;margin-bottom: 10px">
                         <button type="submit" style="width: 80px;" class="btn btn-primary">Upload</button>
-                        <button type="button" style="width: 80px;" onclick="showProducts()" class="btn btn-primary">Push</button>
+<!--                        <button type="button" style="width: 80px;" onclick="showProducts()" class="btn btn-primary">Push</button>-->
                     </div>
                 </form>
                 <div>
                     <div id="productDivId">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>NAME</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            </tr>
-                            <tr th:if="${result != null && !result.empty}" th:each="item : ${result}">
-                                <td><span th:text="${item.getId()}">#</span></td>
-                                <td><span th:text="${item.getProduct().getName()}">NAME</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -62,6 +46,10 @@
 </body>
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="application/javascript"></script>
 <script>
+    $(document).ready(function (){
+        showProducts();
+    })
+
     function showProducts(){
         $.ajax({
             url:"/inventory/loadingproducts",
