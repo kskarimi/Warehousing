@@ -32,11 +32,11 @@ public class FileUtil {
 
     public void uploadFile(MultipartFile file) throws BaseException {
         if (file.isEmpty())
-            throw new BaseException("FileUtil: file is empty");
+            throw new BaseException("File is empty");
         try {
             Files.copy(file.getInputStream(),this.getFilePath(getFileName(file)), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException exception) {
-            throw new BaseException("FileUtil: copy failed !");
+            throw new BaseException("Copying file failed !");
         }
     }
 

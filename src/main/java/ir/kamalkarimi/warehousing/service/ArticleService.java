@@ -9,6 +9,8 @@ import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleService {
 
@@ -34,6 +36,17 @@ public class ArticleService {
         return articleMapper.articleToArticleTO(article);
     }
 
+    public List<ArticleTO> index(List<ArticleTO> articleTOS) {
+
+        if (baseUtil.isNull(articleTOS))
+            return null;
+
+        List<Article> articles = articleMapper.articleTOsToArticles(articleTOS);
+        articles = articleManager.index(articles);
+
+        return articleMapper.articlesToArticleTOs(articles);
+    }
+
     public boolean isExists(ArticleTO articleTO) {
         if (baseUtil.isNull(articleTO))
             return false;
@@ -41,5 +54,9 @@ public class ArticleService {
         Article probe = articleManager.findById(article.getId());
 
         return !baseUtil.isNull(probe);
+    }
+
+    public List<ArticleTO> findAll() {
+        return articleMapper.articlesToArticleTOs(articleManager.findAll());
     }
 }

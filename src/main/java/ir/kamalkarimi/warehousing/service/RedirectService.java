@@ -14,6 +14,7 @@ public class RedirectService {
 
     public final static String HOME_PAGE      = "home";
     public final static String INVENTORY_PAGE = "inventory";
+    public final static String ARTICLE_PAGE   = "article";
     public final static String PRODUCT_PAGE   = "product";
 
     public final static String HOME_URL           = "/";
@@ -24,17 +25,5 @@ public class RedirectService {
         if (!StringUtils.hasLength(path))
             path = HOME_URL;
         return "redirect:"+path;
-    }
-
-    public String getReferer(String referer){
-        if (!StringUtils.hasLength(referer))
-            return HOME_URL;
-        if (referer.contains(INVENTORY_PAGE)){
-            return INVENTORY_PAGE;
-        }else if (referer.contains(PRODUCT_PAGE)){
-            return PRODUCT_PAGE;
-        }else{
-            return HOME_URL;
-        }
     }
 }
