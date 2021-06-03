@@ -1,23 +1,29 @@
 package ir.kamalkarimi.warehousing.dto;
 
-import ir.kamalkarimi.warehousing.model.Article;
-import ir.kamalkarimi.warehousing.model.Product;
-
-import java.util.List;
-
 public class ProductArticleTO {
 
     private Long id;
 
-    private Product product;
+    private ProductTO product;
 
-    private Article article;
+    private ArticleTO article;
 
-    private Integer amount;
+    private Integer productAmount;
 
     public ProductArticleTO() {
+        this(null,null,null,null);
     }
 
+    public ProductArticleTO(ProductTO product, ArticleTO article, Integer productAmount) {
+        this(null, product, article, productAmount);
+    }
+
+    public ProductArticleTO(Long id, ProductTO product, ArticleTO article, Integer productAmount) {
+        this.id = id;
+        this.product = product;
+        this.article = article;
+        this.productAmount = productAmount;
+    }
 
     public Long getId() {
         return id;
@@ -27,27 +33,27 @@ public class ProductArticleTO {
         this.id = id;
     }
 
-    public Product getProduct() {
+    public ProductTO getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductTO product) {
         this.product = product;
     }
 
-    public Article getArticle() {
+    public ArticleTO getArticle() {
         return article;
     }
 
-    public void setArticle(Article article) {
+    public void setArticle(ArticleTO article) {
         this.article = article;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getProductAmount() {
+        return productAmount;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setProductAmount(Integer productAmount) {
+        this.productAmount = productAmount;
     }
 }

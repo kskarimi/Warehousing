@@ -40,9 +40,10 @@ public abstract class BaseManagerImpl<T extends Base> implements BaseManager<T> 
     }
 
     @Override
-    public Optional<T> findOne(T example) {
+    public T  findOne(T example) {
         Example<T> probe = Example.of(example);
-        return getRepository().findOne(probe);
+        Optional<T> one = getRepository().findOne(probe);
+        return one.orElse(null);
     }
 
     @Override
@@ -75,8 +76,10 @@ public abstract class BaseManagerImpl<T extends Base> implements BaseManager<T> 
     public void delete(T example) {
         if (example == null)
             return;
-        Optional<T> probe = this.findOne(example);
-        probe.ifPresent(p-> getRepository().delete(p));
+        T probe = this.findOne(example);
+        if (probe == null)
+            return;
+        getRepository().delete(probe);
     }
 
     @Override

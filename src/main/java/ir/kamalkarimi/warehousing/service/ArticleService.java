@@ -33,4 +33,13 @@ public class ArticleService {
 
         return articleMapper.articleToArticleTO(article);
     }
+
+    public boolean isExists(ArticleTO articleTO) {
+        if (baseUtil.isNull(articleTO))
+            return false;
+        Article article = articleMapper.articleTOToArticle(articleTO);
+        Article probe = articleManager.findById(article.getId());
+
+        return !baseUtil.isNull(probe);
+    }
 }

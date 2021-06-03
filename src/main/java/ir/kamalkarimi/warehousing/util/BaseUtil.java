@@ -3,6 +3,8 @@ package ir.kamalkarimi.warehousing.util;
 import ir.kamalkarimi.warehousing.model.Base;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,5 +22,9 @@ public class BaseUtil {
 
     public Boolean isNull(Object o){
         return Objects.isNull(o);
+    }
+
+    public Boolean isNull(Collection collection){
+        return collection == null || collection.isEmpty();
     }
 }

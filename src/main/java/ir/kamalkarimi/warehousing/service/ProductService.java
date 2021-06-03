@@ -28,8 +28,12 @@ public class ProductService {
 
         Product product = productMapper.productTOToProduct(productTO);
 
-        product = productManager.index(product);
+        Product probe = productManager.findOne(product);
 
-        return productMapper.productToProductTO(product);
+        if (baseUtil.isNull(probe)){
+           probe =  productManager.index(product);
+        }
+
+        return productMapper.productToProductTO(probe);
     }
 }

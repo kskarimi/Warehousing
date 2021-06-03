@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-@SequenceGenerator(name = "id_gen",sequenceName = "component_seq",allocationSize = 1)
+@SequenceGenerator(name = "id_gen",sequenceName = "product_article_seq",allocationSize = 1)
 public class ProductArticle extends BaseImpl {
 
     @ManyToOne

@@ -21,4 +21,10 @@ public class ArticleManager extends BaseManagerImpl<Article> {
     protected BaseRepository<Article> getRepository() {
         return repository;
     }
+
+    public Article findById(Long id) {
+        if (baseUtil.isNull(id))
+            return null;
+        return repository.findById(id).orElse(null);
+    }
 }

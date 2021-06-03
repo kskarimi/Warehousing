@@ -14,28 +14,20 @@ public interface ProductArticleMapper {
 
     ProductArticleMapper COMPONENT_MAPPER = Mappers.getMapper(ProductArticleMapper.class);
 
-    ProductArticleTO componentToComponentTO(ProductArticle productArticle);
+    ProductArticleTO productArticleToProductArticleTO(ProductArticle productArticle);
 
-    ProductArticle componentTOToComponent(ProductArticleTO ProductArticleTO);
+    ProductArticle productArticleTOToProductArticle(ProductArticleTO ProductArticleTO);
 
-    List<ProductArticleTO> componentsToComponentTOs(List<ProductArticle> productArticles);
+    List<ProductArticleTO> productArticlesToProductArticleTOs(List<ProductArticle> productArticles);
 
-    List<ProductArticle>  componentTOsToComponents(List<ProductArticleTO> productArticleTOS);
+    List<ProductArticle> productArticleTOsToProductArticles(List<ProductArticleTO> productArticleTOS);
 
     ArticleTO articleToArticleTO(Article article);
 
     Article  articleTOToArticle(ArticleTO articleTO);
 
-    List<ArticleTO> articlesToArticleTOs(List<Article> article);
-
-    List<Article>   articleTOsToArticles(List<ArticleTO> articleTO);
-
     ProductTO productToProductTO(Product product);
 
     Product  productTOToProduct(ProductTO productTO);
-
-    List<ProductTO> productsToProductTOs(List<Product> products);
-
-    List<Product> productTOsToProduct(List<ProductTO> productTOs);
 
 }

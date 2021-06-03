@@ -1,17 +1,16 @@
 package ir.kamalkarimi.warehousing.controller;
 
 import ir.kamalkarimi.warehousing.dto.ArticleTO;
+import ir.kamalkarimi.warehousing.dto.ProductArticleTO;
 import ir.kamalkarimi.warehousing.dto.ProductTO;
 import ir.kamalkarimi.warehousing.service.AjaxService;
 import ir.kamalkarimi.warehousing.service.ArticleService;
+import ir.kamalkarimi.warehousing.service.InventoryFacade;
 import ir.kamalkarimi.warehousing.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class TestController extends BaseController {
@@ -24,6 +23,9 @@ public class TestController extends BaseController {
 
     @Autowired
     AjaxService ajaxService;
+
+    @Autowired
+    InventoryFacade inventoryFacade;
 
     @ResponseBody
     @GetMapping(value = "/test/article")
@@ -62,14 +64,21 @@ public class TestController extends BaseController {
 
 
     @ResponseBody
-    @GetMapping(value = "/test/component")
-    public String component() {
+    @GetMapping(value = "/test/productarticle")
+    public String productArticle() {
 
         ProductTO productTO = new ProductTO("table");
 
-        List<ArticleTO> articles = new ArrayList<>();
-        articles.add(new ArticleTO(1L, "leg", 3));
+        ArticleTO articles = new ArticleTO(1L, "leg", 3);
 
-        return null;
+        ProductArticleTO productArticleTO = new ProductArticleTO();
+
+        productArticleTO.setProduct(productTO);
+
+        productArticleTO.setArticle(articles);
+
+        productArticleTO.setProductAmount(2);
+
+        return ajaxService.toJson(inventoryFacade.loadingProduct(productArticleTO));
     }
 }

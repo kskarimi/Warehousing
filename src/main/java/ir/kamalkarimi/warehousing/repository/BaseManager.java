@@ -20,7 +20,7 @@ public interface BaseManager <T extends Base>{
 
     T getById(long id);
 
-    Optional<T> findOne(T example);
+    T findOne(T example);
 
     List<T> findAll(T example);
 
