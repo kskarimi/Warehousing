@@ -1,10 +1,10 @@
 package ir.kamalkarimi.warehousing.controller;
 
-import ir.kamalkarimi.warehousing.dto.ArticleTO;
-import ir.kamalkarimi.warehousing.dto.ReceivedArticleTO;
+import ir.kamalkarimi.warehousing.dto.*;
 import ir.kamalkarimi.warehousing.exception.BaseException;
 import ir.kamalkarimi.warehousing.service.AjaxService;
-import ir.kamalkarimi.warehousing.service.ArticleService;
+import ir.kamalkarimi.warehousing.service.InventoryFacade;
+import ir.kamalkarimi.warehousing.service.ProductService;
 import ir.kamalkarimi.warehousing.service.RedirectService;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import ir.kamalkarimi.warehousing.util.FileUtil;
@@ -13,54 +13,58 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class ArticleController extends BaseController {
+public class InventoryController extends BaseController {
 
-    private final ArticleService articleService;
+    private final InventoryFacade inventoryFacade;
+    private final ProductService productService;
     private final AjaxService ajaxService;
     private final BaseUtil baseUti;
     private final FileUtil fileUtil;
     private final RedirectService redirectService;
 
     @Autowired
-    public ArticleController(ArticleService articleService, AjaxService ajaxService, BaseUtil baseUti,
-                             FileUtil fileUtil, RedirectService redirectService) {
-        this.articleService = articleService;
+    public InventoryController(InventoryFacade inventoryFacade, ProductService productService, AjaxService ajaxService,
+                               BaseUtil baseUti, FileUtil fileUtil, RedirectService redirectService) {
+        this.inventoryFacade = inventoryFacade;
+        this.productService = productService;
         this.ajaxService = ajaxService;
         this.baseUti = baseUti;
         this.fileUtil = fileUtil;
         this.redirectService = redirectService;
-
-
     }
 
-    @GetMapping(value = {"/article"})
+    @GetMapping(value = {"/inventory"})
     public String homePage(HttpServletRequest request, HttpServletResponse response, Model model) {
         super.initializer(request, response);
+        List<ProductTO> productTOS = productService.findAll();
 
-        List<ArticleTO> articleTOS = articleService.findAll();
-
-        if (baseUti.isNull(articleTOS)) {
+        if (baseUti.isNull(productTOS)) {
             model.addAttribute(AjaxService.STATUS, HttpStatus.NOT_FOUND.name());
-            model.addAttribute(AjaxService.MESSAGE, "Not fount any articles");
+            model.addAttribute(AjaxService.MESSAGE, "Not fount any products");
             model.addAttribute(AjaxService.RESULT, null);
         } else {
             model.addAttribute(AjaxService.STATUS, HttpStatus.OK.name());
             model.addAttribute(AjaxService.MESSAGE, null);
-            model.addAttribute(AjaxService.RESULT, articleTOS);
+            model.addAttribute(AjaxService.RESULT, productTOS);
         }
-        return RedirectService.ARTICLE_PAGE;
+        return RedirectService.INVENTORY_PAGE;
     }
 
-    @PostMapping("/article")
-    public String uploadArticles(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile file, Model model) {
+    @PostMapping(value = {"/inventory"})
+    public String uploadProduct(HttpServletRequest request, HttpServletResponse response,
+                                @RequestParam("file") MultipartFile file, Model model) {
         super.initializer(request, response);
         if (file.isEmpty()) {
             model.addAttribute(AjaxService.STATUS, HttpStatus.NOT_FOUND.name());
@@ -68,9 +72,8 @@ public class ArticleController extends BaseController {
             model.addAttribute(AjaxService.RESULT, null);
         } else {
             String fileName = file.getOriginalFilename();
-
             if (StringUtils.hasLength(fileName) &&
-                    fileName.equalsIgnoreCase("inventory.json")) {
+                    fileName.equalsIgnoreCase("products.json")) {
                 try {
                     fileUtil.uploadFile(file);
                     model.addAttribute(AjaxService.STATUS, HttpStatus.OK.name());
@@ -83,35 +86,36 @@ public class ArticleController extends BaseController {
                 }
             } else {
                 model.addAttribute(AjaxService.STATUS, HttpStatus.BAD_REQUEST.name());
-                model.addAttribute(AjaxService.MESSAGE, "File name should be inventory !");
+                model.addAttribute(AjaxService.MESSAGE, "File name should be products !");
                 model.addAttribute(AjaxService.RESULT, null);
             }
         }
 
-        return RedirectService.ARTICLE_PAGE;
+        return RedirectService.INVENTORY_PAGE;
     }
 
-
     @ResponseBody
-    @GetMapping("/article/loadingarticles")
-    public String loadingArticle(HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping("/inventory/loadingproducts")
+    public String loadingProducts(HttpServletRequest request, HttpServletResponse response) {
         super.initializer(request, response);
-        ReceivedArticleTO productsTOS = fileUtil.readFile("inventory", ReceivedArticleTO.class);
+        ReceivedProductsTO productsTOS = fileUtil.readFile("products", ReceivedProductsTO.class);
 
         if (baseUti.isNull(productsTOS)) {
             message.put(AjaxService.STATUS, HttpStatus.NOT_FOUND);
             message.put(AjaxService.RESULT, "Not found inventory.json file !");
         } else {
-            List<ArticleTO> articleTOS = productsTOS.getInventory();
-            if (baseUti.isNull(articleTOS)) {
+            List<ProductsTO> productsTOList = Arrays.asList(productsTOS.getProducts());
+            if (baseUti.isNull(productsTOList)) {
                 message.put(AjaxService.STATUS, HttpStatus.NOT_FOUND);
-                message.put(AjaxService.RESULT, "Not found inventory.json file !");
+                message.put(AjaxService.RESULT, "Not found products.json file !");
             } else {
-                articleTOS = articleService.index(articleTOS);
+                List<ProductArticleTO> productArticleTOS = inventoryFacade.loadingProduct(productsTOList);
                 message.put(AjaxService.STATUS, HttpStatus.OK);
-                message.put(AjaxService.RESULT, articleTOS);
+                message.put(AjaxService.RESULT, productArticleTOS);
             }
         }
         return ajaxService.toJson(message);
     }
+
+
 }

@@ -31,8 +31,12 @@ public class FileUtil {
     }
 
     public void uploadFile(MultipartFile file) throws BaseException {
-        if (file.isEmpty())
+        if (file.isEmpty()){
             throw new BaseException("File is empty");
+        }else if ( !StringUtils.hasLength(file.getContentType()) ||
+                !file.getContentType().equalsIgnoreCase("application/json")){
+            throw new BaseException("File format not correct");
+        }
         try {
             Files.copy(file.getInputStream(),this.getFilePath(getFileName(file)), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException exception) {

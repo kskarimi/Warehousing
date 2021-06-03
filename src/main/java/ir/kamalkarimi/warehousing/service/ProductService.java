@@ -8,6 +8,8 @@ import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -35,5 +37,9 @@ public class ProductService {
         }
 
         return productMapper.productToProductTO(probe);
+    }
+
+    public List<ProductTO> findAll() {
+        return productMapper.productsToProductTOs(productManager.findAll());
     }
 }
