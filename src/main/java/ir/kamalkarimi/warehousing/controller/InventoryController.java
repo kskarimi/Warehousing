@@ -143,8 +143,13 @@ public class InventoryController extends BaseController {
             message.put(AjaxService.RESULT,"Product name and number of order can not empty!");
         }else{
             InventoryTO inventoryTO = inventoryFacade.buy(productName,orderCount);
-            message.put(AjaxService.STATUS,HttpStatus.OK);
-            message.put(AjaxService.RESULT,inventoryTO);
+            if (!baseUti.isNull(inventoryTO)){
+                message.put(AjaxService.STATUS,HttpStatus.OK);
+                message.put(AjaxService.RESULT,inventoryTO);
+            }else {
+                message.put(AjaxService.STATUS,HttpStatus.NOT_FOUND);
+                message.put(AjaxService.RESULT,"Not found "+productName);
+            }
         }
 
         return ajaxService.toJson(message);

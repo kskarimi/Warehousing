@@ -7,6 +7,7 @@ import ir.kamalkarimi.warehousing.repository.ProductManager;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -41,5 +42,13 @@ public class ProductService {
 
     public List<ProductTO> findAll() {
         return productMapper.productsToProductTOs(productManager.findAll());
+    }
+
+    public ProductTO findByName(String productName) {
+        if (!StringUtils.hasText(productName))
+            return null;
+        ProductTO probe = new ProductTO();
+        probe.setName(productName);
+        return productMapper.productToProductTO(productManager.findOne(productMapper.productTOToProduct(probe)));
     }
 }

@@ -6,6 +6,7 @@ import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -113,17 +114,54 @@ public class InventoryFacade {
                 if (stock >= amount){
                     isAvailable = true;
                     int count = stock/amount;
-                    if (count <= inventory)
+                    if (count <= inventory){
                         inventory = count;
+                    }
+                }else {
+                    inventory = 0;
+                    isAvailable = false;
                 }
             }
 
         }
+        inventory = inventory == Integer.MAX_VALUE ? 0:inventory;
         String productName = product == null ? "":product.getName();
         return new InventoryTO(productName,inventory,isAvailable);
     }
 
     public InventoryTO buy(String productName, String orderCount) {
-        return null;
+        if (!StringUtils.hasText(productName) || !StringUtils.hasText(orderCount))
+            return null;
+        int count = Integer.parseInt(orderCount);
+
+        ProductTO productTO = productService.findByName(productName);
+
+        if (baseUtil.isNull(productTO))
+            return null;
+
+        InventoryTO inventoryTO = this.productInventory(productTO);
+        if (baseUtil.isNull(inventoryTO) || !inventoryTO.isAvailable()){
+            return null;
+        }
+
+        List<ProductArticleTO> productArticleTO = productArticleService.findByProduct(productTO);
+        if (baseUtil.isNull(productArticleTO)){
+            return null;
+        }
+
+        for (ProductArticleTO productArticle : productArticleTO) {
+            if (baseUtil.isNull(productArticle)){
+                return null;
+            }
+            ArticleTO articleTO = productArticle.getArticle();
+            int amount = articleTO.getStock() - productArticle.getProductAmount()*count;
+            if (amount < 0){
+                return null;
+            }
+            articleTO.setStock(amount);
+            articleService.index(articleTO);
+        }
+
+        return this.productInventory(productTO);
     }
 }
