@@ -20,7 +20,7 @@
                 <nav class="nav navbar-dark bg-dark custom-nav">
                     <a href="/" class="navbar-brand">Home</a>
                     <a href="/article" class="navbar-brand">Article</a>
-                    <a href="/inventory" class="navbar-brand">Product</a>
+                    <a href="/inventory" class="navbar-brand">Inventory</a>
                 </nav>
                 <h2>Upload product data</h2>
                 <p th:text="${message}" th:if="${message != null && status != null  && status == 'OK'}" class="alert alert-primary"></p>
@@ -54,7 +54,6 @@
         $.ajax({
             url:"/inventory/loadingproducts",
             type:'get',
-            data:{},
             success: function (callback){
                 if (callback){
                     let json = JSON.parse(callback);
