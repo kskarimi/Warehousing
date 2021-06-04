@@ -88,7 +88,7 @@ public class InventoryFacade {
 
         List<ProductArticleTO> productArticleTOS = productArticleService.findByProduct(productTO);
 
-        int inventory = 0;
+        int inventory = Integer.MAX_VALUE;
         boolean isAvailable = false;
         ProductTO product = null;
 
@@ -113,7 +113,7 @@ public class InventoryFacade {
                 if (stock >= amount){
                     isAvailable = true;
                     int count = stock/amount;
-                    if (count >= inventory)
+                    if (count <= inventory)
                         inventory = count;
                 }
             }
