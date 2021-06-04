@@ -142,6 +142,9 @@ public class InventoryFacade {
             return null;
         int count = Integer.parseInt(orderCount);
 
+        if(count <=0 )
+            return null;
+
         ProductTO productTO = productService.findByName(productName);
 
         if (baseUtil.isNull(productTO))
