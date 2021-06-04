@@ -2,8 +2,9 @@ package ir.kamalkarimi.warehousing.service;
 
 import ir.kamalkarimi.warehousing.dto.*;
 import ir.kamalkarimi.warehousing.dto.ProductTO;
-import ir.kamalkarimi.warehousing.model.Article;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -18,6 +19,8 @@ public class InventoryFacade {
     private final ProductService productService;
     private final ProductArticleService productArticleService;
     private final BaseUtil baseUtil;
+
+    private static  final Logger LOGGER = LoggerFactory.getLogger(InventoryFacade.class);
 
     @Autowired
     public InventoryFacade(ArticleService articleService, ProductService productService, ProductArticleService productArticleService, BaseUtil baseUtil) {
@@ -76,7 +79,12 @@ public class InventoryFacade {
                 productArticleTO.setArticle(articleTO);
 
                 productArticleTO = this.loadingProduct(productArticleTO);
-                productTOS.add(productArticleTO.getProduct());
+                if (!baseUtil.isNull(productArticleTO)){
+                    productTOS.add(productArticleTO.getProduct());
+                }else{
+                    LOGGER.info("Not fount products!");
+                    break;
+                }
             }
         }
         return productTOS;

@@ -1,5 +1,6 @@
 package ir.kamalkarimi.warehousing.service;
 
+import ir.kamalkarimi.warehousing.aop.ExceptionLoggerAop;
 import ir.kamalkarimi.warehousing.dto.ProductArticleMapper;
 import ir.kamalkarimi.warehousing.dto.ProductArticleTO;
 import ir.kamalkarimi.warehousing.dto.ProductTO;
@@ -8,6 +9,8 @@ import ir.kamalkarimi.warehousing.model.Product;
 import ir.kamalkarimi.warehousing.model.ProductArticle;
 import ir.kamalkarimi.warehousing.repository.ProductArticleManager;
 import ir.kamalkarimi.warehousing.util.BaseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,8 @@ public class ProductArticleService {
     private final ProductArticleMapper productArticleMapper;
 
     private final BaseUtil baseUtil;
+
+    private static  final Logger LOGGER = LoggerFactory.getLogger(ProductArticleService.class);
 
     @Autowired
     public ProductArticleService(ProductArticleManager productArticleManager, ProductArticleMapper productArticleMapper, BaseUtil baseUtil) {
