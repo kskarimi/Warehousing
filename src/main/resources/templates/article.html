@@ -34,10 +34,26 @@
                     </div>
                     <div style="margin-top: 10px;margin-bottom: 10px">
                         <button type="submit" style="width: 80px;" class="btn btn-primary">Upload</button>
-<!--                        <button type="button" style="width: 80px;" onclick="showInventory()" class="btn btn-primary">Push</button>-->
+                        <button type="button" style="width: 80px;" onclick="showInventory()" class="btn btn-primary">Push</button>
                     </div>
                 </form>
-                <div id="inventoryDivId">
+                <div id="articleDivId">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NAME</th>
+                            <th>STOCK</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${result != null && !result.empty}" th:each="item : ${result}">
+                            <td><span th:text="${item.getId()}">#</span></td>
+                            <td><span th:text="${item.getName()}">NAME</span></td>
+                            <td><span th:text="${item.getStock()}">STOCK</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -46,9 +62,6 @@
 </body>
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="application/javascript"></script>
 <script>
-    $(document).ready(function () {
-        showInventory();
-    })
     function showInventory(){
         $.ajax({
            url:"/article/loadingarticles",
@@ -73,8 +86,8 @@
                                '</tr>';
                        }
                        table += '</tbody></table>';
-                       $('#inventoryDivId table').remove();
-                       $('#inventoryDivId').append(table);
+                       $('#articleDivId table').remove();
+                       $('#articleDivId').append(table);
                    }
                }
            } ,
