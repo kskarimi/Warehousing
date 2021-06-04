@@ -73,21 +73,7 @@
                    let status = json.status;
                    let article = json.result;
                    if (status && status == 'OK' && article){
-                       let table = '<table class="table"><thead><tr>\n' +
-                           '<th scope="col">#</th>\n' +
-                           '<th scope="col">NAME</th>\n' +
-                           '<th scope="col">STOCK</th>\n' +
-                           '</tr></thead><tbody>';
-                       for (let i=0 ; i< article.length; i++){
-                           table += '<tr>'+
-                               '<td>'+article[i].id+'</td>' +
-                               '<td>'+article[i].name+'</td>' +
-                               '<td>'+article[i].stock+'</td>' +
-                               '</tr>';
-                       }
-                       table += '</tbody></table>';
-                       $('#articleDivId table').remove();
-                       $('#articleDivId').append(table);
+                       location.reload();
                    }
                }
            } ,

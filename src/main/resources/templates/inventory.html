@@ -6,6 +6,8 @@
 </head>
 <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+<script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" type="application/javascript"></script>
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="application/javascript"></script>
 <style>
     .custom-nav{
         padding: 10px;
@@ -26,6 +28,9 @@
                 <h2>Upload product data</h2>
                 <p th:text="${message}" th:if="${message != null && status != null  && status == 'OK'}" class="alert alert-primary"></p>
                 <p th:text="${message}" th:if="${message != null && status != null && status != 'OK'}" class="alert alert-danger"></p>
+                <div id="messageParent">
+                    <div id="message"></div>
+                </div>
                 <form method="post" th:action="@{/inventory}" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="file" name="file" class="form-control-file">
@@ -38,12 +43,13 @@
                 </form>
                 <div>
                     <div id="inventoryDivId">
-                        <table class="table">
+                        <table class="table text-center">
                             <thead>
                             <tr>
                                 <th>NAME</th>
                                 <th>AMOUNT</th>
                                 <th>AVAILABLE</th>
+                                <th>NUMBER OF ORDER</th>
                                 <th>OPERATION</th>
                             </tr>
                             </thead>
@@ -56,7 +62,12 @@
                                     <label th:if="${item.isAvailable() == false }" class="badge bg-danger">NO</label>
                                 </td>
                                 <td>
-                                    <button type="button" style="width: 80px; padding: 3px !important;" onclick="" class="btn btn-secondary"><i class="fa fa-shopping-cart"></i></button>
+                                    <input id="countOrder" type="number" value="0" class="w-25 text-center">
+                                </td>
+                                <td>
+                                    <button type="button" th:attr="data-name=${item.getName()},data-amount=${item.getAmount()},data-available=${item.isAvailable()}" onclick="buy(this)" style="width: 80px; padding: 3px !important;" class="btn btn-secondary">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>
@@ -67,8 +78,8 @@
         </div>
     </div>
 </section>
+
 </body>
-<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="application/javascript"></script>
 <script>
     function showProducts(){
         $.ajax({
@@ -89,6 +100,57 @@
                 console.log(result)
             }
         });
+    }
+
+    function buy(product){
+        let orderCount  = $(product).parents('tr').find('input[id="countOrder"]').val();
+        let name = $(product).attr('data-name');
+        let amount = $(product).attr('data-amount');
+        let available = $(product).attr('data-available');
+
+        if (available && available === 'true'){
+           if (parseInt(orderCount) <= parseInt(amount)){
+
+               $.ajax({
+                   url:'/inventory/buy',
+                   type:'post',
+                   data:{
+                       'productName':name,
+                       'orderCount':orderCount
+                   },
+                   success: function (callback){
+                       if (callback){
+                           let myJson = JSON.parse(callback);
+                           let status = myJson.status;
+                           let result = myJson.result;
+
+                           if (status &&  status == 'OK'){
+                               showMessage(result,'success');
+                           }else if (status != 'OK'){
+                               showMessage(result,'error');
+                           }
+                       }
+                   },
+                   error: function (callback){
+                   }
+               });
+
+           }else{
+               showMessage('Number of order can not bigger than amount!','error');
+           }
+        }else{
+            showMessage(name + ' not available!', 'error');
+        }
+    }
+
+
+    function showMessage(txt,type){
+        $('#message').remove()
+        if (type && type == 'success'){
+            $('#messageParent').append('<div id="message"><p class="alert alert-success">'+txt+'</p></div>')
+        }else {
+            $('#messageParent').append('<div id="message"><p class="alert alert-danger">'+txt+'</p></div>')
+        }
     }
 </script>
 </html>

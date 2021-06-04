@@ -122,4 +122,8 @@ public class InventoryFacade {
         String productName = product == null ? "":product.getName();
         return new InventoryTO(productName,inventory,isAvailable);
     }
+
+    public InventoryTO buy(String productName, String orderCount) {
+        return null;
+    }
 }

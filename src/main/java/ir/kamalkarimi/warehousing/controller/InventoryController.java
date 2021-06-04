@@ -125,5 +125,30 @@ public class InventoryController extends BaseController {
         return ajaxService.toJson(message);
     }
 
+    @ResponseBody
+    @PostMapping(value = "/inventory/buy")
+    public String buy(HttpServletRequest request,HttpServletResponse response){
+        super.initializer(request,response);
+
+        String productName = request.getParameter("productName");
+        String orderCount  = request.getParameter("orderCount");
+
+        productName = productName == null ? "":productName.trim();
+        orderCount  = orderCount  == null ? "":orderCount.trim();
+
+        message.clear();
+
+        if (!StringUtils.hasLength(productName) || !StringUtils.hasLength(orderCount)){
+            message.put(AjaxService.STATUS,HttpStatus.BAD_REQUEST);
+            message.put(AjaxService.RESULT,"Product name and number of order can not empty!");
+        }else{
+            InventoryTO inventoryTO = inventoryFacade.buy(productName,orderCount);
+            message.put(AjaxService.STATUS,HttpStatus.OK);
+            message.put(AjaxService.RESULT,"inventoryTO");
+        }
+
+        return ajaxService.toJson(message);
+    }
+
 
 }
