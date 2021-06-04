@@ -112,9 +112,9 @@ public class InventoryFacade {
             Integer stock = articleTO.getStock();
             if (!baseUtil.isNull(stock) && !baseUtil.isNull(amount)){
                 if (stock >= amount){
-                    isAvailable = true;
                     int count = stock/amount;
                     if (count <= inventory){
+                        isAvailable = true;
                         inventory = count;
                     }
                 }else {
