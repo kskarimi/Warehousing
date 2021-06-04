@@ -31,8 +31,8 @@ public class InventoryFacade {
             return null;
 
         ProductTO productTO = productArticleTO.getProduct();
-
         ArticleTO articleTO = productArticleTO.getArticle();
+        Integer amount      = productArticleTO.getProductAmount();
 
         if (baseUile.isNull(productTO))
             return null;
@@ -41,11 +41,14 @@ public class InventoryFacade {
 
         if (!articleService.isExists(articleTO)) {
             return null;
+        }else {
+            articleTO = articleService.fndById(articleTO.getId());
         }
 
-        productArticleTO.setProduct(productTO);
+        if (baseUile.isNull(articleTO))
+            return null;
 
-        return productArticleService.index(productArticleTO);
+        return productArticleService.index(new ProductArticleTO(null,productTO,articleTO,amount));
     }
 
     public Set<ProductTO> loadingProduct(List<ProductsTO> productsTOList) {

@@ -30,10 +30,22 @@ public class ProductArticleService {
         if (baseUtil.isNull(productArticleTO))
             return null;
         ProductArticle probe = productArticleMapper.productArticleTOToProductArticle(productArticleTO);
-        probe = productArticleManager.index(probe);
+        if (!isExist(productArticleTO)){
+            probe = productArticleManager.index(probe);
+        }else{
+            probe = productArticleMapper.productArticleTOToProductArticle(productArticleTO);
+        }
         productArticleTO = productArticleMapper.productArticleToProductArticleTO(probe);
 
         return productArticleTO;
 
+    }
+
+
+    public boolean isExist(ProductArticleTO productArticleTO){
+        if (baseUtil.isNull(productArticleTO))
+            return false;
+        ProductArticle probe = productArticleMapper.productArticleTOToProductArticle(productArticleTO);
+        return !baseUtil.isNull(productArticleManager.findOne(probe));
     }
 }

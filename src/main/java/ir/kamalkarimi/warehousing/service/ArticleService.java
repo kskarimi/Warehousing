@@ -59,4 +59,10 @@ public class ArticleService {
     public List<ArticleTO> findAll() {
         return articleMapper.articlesToArticleTOs(articleManager.findAll());
     }
+
+    public ArticleTO fndById(Long id) {
+        if (baseUtil.isNull(id))
+            return null;
+        return articleMapper.articleToArticleTO(articleManager.findById(id));
+    }
 }
