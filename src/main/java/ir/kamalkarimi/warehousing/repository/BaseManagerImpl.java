@@ -5,6 +5,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,5 +91,31 @@ public abstract class BaseManagerImpl<T extends Base> implements BaseManager<T> 
     @Override
     public long count() {
         return getRepository().count();
+    }
+
+    @Override
+    public T mount(T base) {
+        if (base == null)
+            return null;
+        T probe = findOne(base);
+        if (probe == null)
+            probe =  index(base);
+        return probe;
+    }
+
+    @Override
+    public List<T> mount(List<T> bases) {
+        if (bases == null || bases.isEmpty())
+            return null;
+        List<T> lists = new ArrayList<>();
+        for (T basis : bases) {
+            if (basis == null)
+                continue;
+            T probe = findOne(basis);
+            if (probe == null || probe.getId() == null)
+                probe = index(basis);
+            lists.add(probe);
+        }
+        return lists;
     }
 }

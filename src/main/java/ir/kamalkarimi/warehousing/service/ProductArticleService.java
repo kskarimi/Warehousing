@@ -30,11 +30,7 @@ public class ProductArticleService {
         if (baseUtil.isNull(productArticleTO))
             return null;
         ProductArticle probe = productArticleMapper.productArticleTOToProductArticle(productArticleTO);
-        if (!isExist(productArticleTO)){
-            probe = productArticleManager.index(probe);
-        }else{
-            probe = productArticleMapper.productArticleTOToProductArticle(productArticleTO);
-        }
+        probe = productArticleManager.mount(probe);
         productArticleTO = productArticleMapper.productArticleToProductArticleTO(probe);
 
         return productArticleTO;

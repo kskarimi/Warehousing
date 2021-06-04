@@ -14,6 +14,10 @@ public interface BaseManager <T extends Base>{
 
     List<T> index(List<T> base);
 
+    T mount(T base);
+
+    List<T> mount(List<T> base);
+
     T  saveAndFlush(T base);
 
     List<T> saveAllAndFlush(List<T> base);
