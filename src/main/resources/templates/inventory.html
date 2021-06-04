@@ -40,14 +40,23 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>#</th>
                                 <th>NAME</th>
+                                <th>AMOUNT</th>
+                                <th>AVAILABLE</th>
+                                <th>Operation</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:if="${result != null && !result.empty}" th:each="item : ${result}">
-                                <td><span th:text="${item.getId()}">#</span></td>
                                 <td><span th:text="${item.getName()}">NAME</span></td>
+                                <td><span th:text="${item.getAmount()}">AMOUNT</span></td>
+                                <td>
+                                    <label th:if="${item.isAvailable() == true}" class="badge bg-success">YES</label>
+                                    <label th:if="${item.isAvailable() == false }" class="badge bg-danger">NO</label>
+                                </td>
+                                <td>
+                                    <button type="button" style="width: 80px; padding: 3px !important;" onclick="" class="btn btn-danger">Buy</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -71,19 +80,7 @@
                     let product = json.result;
                     console.log(json);
                     if (status && status == 'OK' && product){
-                        let table = '<table class="table"><thead><tr>\n' +
-                            '<th scope="col">#</th>\n' +
-                            '<th scope="col">NAME</th>\n' +
-                            '</tr></thead><tbody>';
-                        for (let i=0 ; i< product.length; i++){
-                            table += '<tr>'+
-                                '<td>'+product[i].id+'</td>' +
-                                '<td>'+product[i].name+'</td>' +
-                                '</tr>';
-                        }
-                        table += '</tbody></table>';
-                        $('#inventoryDivId table').remove();
-                        $('#inventoryDivId').append(table);
+                        location.reload();
                     }
                 }
             } ,

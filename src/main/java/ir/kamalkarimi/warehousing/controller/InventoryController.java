@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -55,9 +56,15 @@ public class InventoryController extends BaseController {
             model.addAttribute(AjaxService.MESSAGE, "Not fount any products");
             model.addAttribute(AjaxService.RESULT, null);
         } else {
+            List<InventoryTO> inventoryTOS = new ArrayList<>();
+            for (ProductTO productTO : productTOS) {
+                if (baseUti.isNull(productTO))
+                    continue;
+                inventoryTOS.add(inventoryFacade.productInventory(productTO));
+            }
             model.addAttribute(AjaxService.STATUS, HttpStatus.OK.name());
             model.addAttribute(AjaxService.MESSAGE, null);
-            model.addAttribute(AjaxService.RESULT, productTOS);
+            model.addAttribute(AjaxService.RESULT, inventoryTOS);
         }
         return RedirectService.INVENTORY_PAGE;
     }
