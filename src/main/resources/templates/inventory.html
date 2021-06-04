@@ -5,6 +5,7 @@
     <title>WareHousing</title>
 </head>
 <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
 <style>
     .custom-nav{
         padding: 10px;
@@ -55,7 +56,7 @@
                                     <label th:if="${item.isAvailable() == false }" class="badge bg-danger">NO</label>
                                 </td>
                                 <td>
-                                    <button type="button" style="width: 80px; padding: 3px !important;" onclick="" class="btn btn-danger">Buy</button>
+                                    <button type="button" style="width: 80px; padding: 3px !important;" onclick="" class="btn btn-secondary"><i class="fa fa-shopping-cart"></i></button>
                                 </td>
                             </tr>
                             </tbody>
