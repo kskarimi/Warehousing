@@ -125,7 +125,10 @@
                            let result = myJson.result;
 
                            if (status &&  status == 'OK'){
-                               showMessage(result,'success');
+                               showMessage('Success!','success');
+                               setTimeout(function (){
+                                   location.reload();
+                               },2000)
                            }else if (status != 'OK'){
                                showMessage(result,'error');
                            }

@@ -144,7 +144,7 @@ public class InventoryController extends BaseController {
         }else{
             InventoryTO inventoryTO = inventoryFacade.buy(productName,orderCount);
             message.put(AjaxService.STATUS,HttpStatus.OK);
-            message.put(AjaxService.RESULT,"inventoryTO");
+            message.put(AjaxService.RESULT,inventoryTO);
         }
 
         return ajaxService.toJson(message);
